@@ -150,7 +150,7 @@ const CHAPTERS = [
         html: `
           <ul>
             <li>Strategic planning sets long-term objectives and predicts future product/service needs.</li>
-            <li>SWOT is used to prioritize, cancel, or select realistic projects.</li>
+            <li>SWOT (Strengths, Weaknesses, Opportunities, Threats) analysis is used to prioritize, cancel, or select realistic projects.</li>
             <li>Selection methods: organizational needs, project categorization, financial analysis, weighted scoring, balanced scorecard.</li>
             <li>Typical sequence: identify potential projects -> evaluate realism/importance -> create charter.</li>
             <li><strong>Balanced scorecard</strong> looks at customer need, financial outcome, organizational efficiency, and organizational growth.</li>
@@ -159,9 +159,9 @@ const CHAPTERS = [
             <table>
               <thead><tr><th>Financial Method</th><th>Meaning</th><th>Decision Rule</th></tr></thead>
               <tbody>
-                <tr><td>NPV</td><td>Present value of future cash flows</td><td>Higher NPV preferred</td></tr>
-                <tr><td>ROI</td><td>Return relative to investment</td><td>Higher ROI preferred, must exceed minimum rate</td></tr>
-                <tr><td>Payback</td><td>Time to recover investment</td><td>Shorter payback preferred</td></tr>
+                <tr><td>Net Present Value (NPV)</td><td>Present value of future cash flows minus costs</td><td>Higher NPV preferred</td></tr>
+                <tr><td>Return on Investment (ROI)</td><td>Return relative to investment; the profitability ratio</td><td>Higher ROI preferred, must exceed minimum rate</td></tr>
+                <tr><td>Payback Period</td><td>Time to recover investment from project benefits</td><td>Shorter payback preferred</td></tr>
               </tbody>
             </table>
           </div>
@@ -1657,7 +1657,7 @@ function buildPages() {
       <h3 style="margin-top: 20px; color: var(--brand);">MOST LIKELY ESSAY QUESTIONS</h3>
       <ul>
         <li><strong>Process Groups:</strong> Define them and explain why all five matter.</li>
-        <li><strong>WBS:</strong> Explain decomposition, the 100% rule, and scope control.</li>
+        <li><strong>WBS (Work Breakdown Structure):</strong> Explain decomposition, the 100% rule, and scope control.</li>
         <li><strong>Critical Path:</strong> Define it, explain float/slack, and show how forward/backward pass work.</li>
         <li><strong>EVM:</strong> Explain CV, SV, CPI, SPI, EAC, TCPI and interpret results.</li>
         <li><strong>Quality:</strong> Compare QA vs QC; explain prevention vs correction.</li>
@@ -1771,7 +1771,7 @@ function buildPages() {
         <li><strong>PERT Formula:</strong> (Optimistic + 4×Most Likely + Pessimistic) / 6; handles uncertainty in duration estimates</li>
         <li><strong>BAC = Budget at Completion:</strong> Total approved project budget baseline, set during cost planning</li>
         <li><strong>EVM Core:</strong> PV (planned), EV (earned), AC (actual); compare for cost and schedule variance</li>
-        <li><strong>Contingency Reserve:</strong> Built into baseline, covers known-unknown risks (plan)contingencies</li>
+        <li><strong>Contingency Reserve:</strong> Built into baseline, covers known-unknown risks; includes planned contingencies for identified risk events</li>
         <li><strong>Management Reserve:</strong> NOT in baseline, covers unknown-unknown risks (sponsor discretion)</li>
       </ul>
 
