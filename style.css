@@ -48,12 +48,18 @@ body {
     var(--bg);
   color: var(--text);
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  overflow-x: hidden;
+}
+
+body.sidebar-open {
+  overflow: hidden;
 }
 
 .site-shell {
   display: grid;
   grid-template-columns: 280px 1fr;
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 .sidebar {
@@ -152,6 +158,7 @@ body {
 .main-area {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .topbar {
@@ -167,11 +174,13 @@ body {
 .controls-grid {
   display: grid;
   grid-template-columns: 1fr auto;
+  align-items: center;
   gap: 10px;
 }
 
 .search-wrap {
   position: relative;
+  min-width: 0;
 }
 
 #global-search {
@@ -225,7 +234,10 @@ body {
 
 .button-row {
   display: flex;
+  align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 button,
@@ -238,6 +250,7 @@ button,
   cursor: pointer;
   font-family: inherit;
   font-size: 0.9rem;
+  min-height: 40px;
 }
 
 button:hover,
@@ -252,6 +265,7 @@ button:hover,
 .page {
   display: none;
   animation: fadeIn 0.25s ease;
+  scroll-margin-top: 96px;
 }
 
 .page.active {
@@ -540,6 +554,8 @@ html[data-theme="dark"] mark.search-hit {
 .hamburger-menu {
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
   border: none;
   background: none;
@@ -555,39 +571,15 @@ html[data-theme="dark"] mark.search-hit {
   display: block;
 }
 
-.sidebar.mobile-closed {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  max-height: calc(100vh - 50px);
-  overflow-y: auto;
-  width: 280px;
-  z-index: 100;
-  box-shadow: var(--shadow);
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 17, 27, 0.45);
+  z-index: 110;
+}
+
+.mobile-overlay[hidden] {
   display: none;
-}
-
-.sidebar.mobile-closed.open {
-  display: block;
-}
-
-.quick-revision-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.revision-checkbox {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.revision-label {
-  font-size: 0.9rem;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .formula-grid {
@@ -644,8 +636,92 @@ html[data-theme="dark"] mark.search-hit {
   display: none !important;
 }
 
-.quick-revision-active .accordion-content {
-  max-height: none !important;
+.diagram-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 12px 0;
+  background: color-mix(in srgb, var(--surface), var(--surface-2) 25%);
+}
+
+.diagram-card h4 {
+  margin: 0 0 10px;
+  color: var(--brand);
+}
+
+.svg-diagram {
+  width: 100%;
+  height: auto;
+  color: var(--text);
+}
+
+.diagram-node,
+.diagram-panel {
+  fill: color-mix(in srgb, var(--surface), var(--surface-2) 35%);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.diagram-node--accent {
+  fill: color-mix(in srgb, var(--surface), var(--brand) 18%);
+}
+
+.diagram-label {
+  fill: currentColor;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.diagram-sub {
+  fill: currentColor;
+  font-size: 15px;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.matrix-axis {
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.matrix-axis--vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.matrix-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.matrix-cell {
+  min-height: 76px;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+}
+
+.matrix-cell.low { background: #eaf6ec; color: #245b2f; }
+.matrix-cell.med { background: #fff6dc; color: #7f5300; }
+.matrix-cell.high { background: #ffe7c7; color: #8f5600; }
+.matrix-cell.critical { background: #ffe0e4; color: #8f1222; }
+
+html[data-theme="dark"] .matrix-cell.low { background: #203528; color: #d8f7df; }
+html[data-theme="dark"] .matrix-cell.med { background: #4f431d; color: #ffe7a6; }
+html[data-theme="dark"] .matrix-cell.high { background: #5a3f24; color: #ffd7a3; }
+html[data-theme="dark"] .matrix-cell.critical { background: #5e2630; color: #ffd5da; }
 }
 
 @media (max-width: 980px) {
@@ -676,7 +752,7 @@ html[data-theme="dark"] mark.search-hit {
     left: 0;
     width: 280px;
     height: 100vh;
-    z-index: 99;
+    z-index: 120;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
@@ -696,9 +772,15 @@ html[data-theme="dark"] mark.search-hit {
   }
 
   .button-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    justify-content: flex-start;
     gap: 6px;
+  }
+
+  .search-results {
+    left: 0;
+    right: 0;
+    max-width: 100%;
   }
 
   button,
@@ -712,6 +794,14 @@ html[data-theme="dark"] mark.search-hit {
   }
 
   .chapter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .formula-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .matrix-board {
     grid-template-columns: 1fr;
   }
 
@@ -785,6 +875,7 @@ html[data-theme="dark"] mark.search-hit {
 
   .button-row {
     gap: 4px;
+    width: 100%;
   }
 
   button,

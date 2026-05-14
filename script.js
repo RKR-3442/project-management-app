@@ -1,5 +1,7 @@
 const STUDIED_KEY = "pm-studied-chapters";
 const THEME_KEY = "pm-theme";
+const QUICK_REVISION_KEY = "quick-revision-mode";
+const SEARCH_DEBOUNCE_MS = 180;
 
 const CHAPTERS = [
   {
@@ -16,10 +18,35 @@ const CHAPTERS = [
             <li><strong>Process</strong> means actions you perform to achieve a specific outcome.</li>
             <li><strong>Project management</strong> is a set of connected process groups used to manage the project from start to end.</li>
             <li>The purpose is to understand the <strong>overall picture</strong> and manage projects systematically, not only cost/resources.</li>
+          <div class="diagram-card">
+            <h4>Fishbone Diagram Example</h4>
+            <svg viewBox="0 0 760 250" class="svg-diagram" role="img" aria-label="Fishbone diagram showing causes of late project delivery">
+              <line x1="120" y1="125" x2="630" y2="125" stroke="currentColor" stroke-width="4"></line>
+              <polygon points="630,95 720,125 630,155" fill="currentColor"></polygon>
+              <text x="695" y="120" text-anchor="middle" class="diagram-label">Late</text>
+              <text x="695" y="145" text-anchor="middle" class="diagram-label">Delivery</text>
+              <line x1="240" y1="125" x2="180" y2="60" stroke="currentColor" stroke-width="3"></line>
+              <line x1="240" y1="125" x2="180" y2="190" stroke="currentColor" stroke-width="3"></line>
+              <line x1="360" y1="125" x2="300" y2="60" stroke="currentColor" stroke-width="3"></line>
+              <line x1="360" y1="125" x2="300" y2="190" stroke="currentColor" stroke-width="3"></line>
+              <line x1="500" y1="125" x2="440" y2="60" stroke="currentColor" stroke-width="3"></line>
+              <line x1="500" y1="125" x2="440" y2="190" stroke="currentColor" stroke-width="3"></line>
+              <text x="150" y="52" class="diagram-sub">Methods</text>
+              <text x="128" y="208" class="diagram-sub">People</text>
+              <text x="275" y="52" class="diagram-sub">Machines/Tools</text>
+              <text x="275" y="208" class="diagram-sub">Materials/Inputs</text>
+              <text x="430" y="52" class="diagram-sub">Measurement</text>
+              <text x="430" y="208" class="diagram-sub">Environment</text>
+            </svg>
+          </div>
             <li>All projects should pass through the same five process groups even if the project is small.</li>
             <li>Time spent is <strong>not equal</strong> across groups; execution usually consumes the largest effort.</li>
+            <li><strong>Execution</strong> usually takes the most time and effort because the actual deliverable is being produced there.</li>
+            <li><strong>All five groups matter</strong>; weakness in one group creates risk in the others.</li>
           </ul>
           <div class="table-wrap">
+                <li><strong>Precision</strong> means repeated results are close to each other; <strong>accuracy</strong> means results are close to the correct target.</li>
+                <li><strong>Grade</strong> is not the same as quality: a low-grade deliverable can still be high quality if it fully meets its intended requirements.</li>
             <table>
               <thead><tr><th>Process Group</th><th>Main Meaning</th><th>Example Output</th></tr></thead>
               <tbody>
@@ -31,7 +58,18 @@ const CHAPTERS = [
               </tbody>
             </table>
           </div>
-            <a href="#formula-sheet" class="nav-link" data-nav="formula-sheet">📋 Formula Sheet</a>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Movie-Making Example</th><th>Process Group</th><th>Why It Fits</th></tr></thead>
+              <tbody>
+                <tr><td>Screenwriting</td><td>Initiating</td><td>The project idea is born and defined.</td></tr>
+                <tr><td>Producing</td><td>Planning</td><td>Budget, schedule, cast, and logistics are arranged.</td></tr>
+                <tr><td>Acting/Directing</td><td>Executing</td><td>The actual work is performed.</td></tr>
+                <tr><td>Editing</td><td>Monitoring &amp; Controlling</td><td>Output is checked and adjusted.</td></tr>
+                <tr><td>Releasing</td><td>Closing</td><td>The finished result is formally delivered.</td></tr>
+              </tbody>
+            </table>
+          </div>
           <div class="note">Dr emphasized: all five groups matter, and weak process discipline causes budget overruns and deadline failures (e.g., IRS-style cases).</div>
         `
       },
@@ -147,6 +185,7 @@ const CHAPTERS = [
             <li>SWOT is used to prioritize, cancel, or select realistic projects.</li>
             <li>Selection methods: organizational needs, project categorization, financial analysis, weighted scoring, balanced scorecard.</li>
             <li>Typical sequence: identify potential projects -> evaluate realism/importance -> create charter.</li>
+            <li><strong>Balanced scorecard</strong> looks at customer need, financial outcome, organizational efficiency, and organizational growth.</li>
           </ul>
           <div class="table-wrap">
             <table>
@@ -179,6 +218,7 @@ const CHAPTERS = [
           </div>
           <ul>
             <li>Charter can be updated, but edits should be documented transparently.</li>
+            <li><strong>Charter inputs</strong>: SOW, business case, agreements, EEF, and OPA.</li>
           </ul>
         `
       },
@@ -189,6 +229,8 @@ const CHAPTERS = [
         html: `
           <ul>
             <li>Execution uses meetings, PMIS, and expert judgment; most project time/cost is spent here.</li>
+            <li><strong>Application area</strong> affects execution because the actual product is produced during execution.</li>
+            <li>The project manager should <strong>lead by example</strong> in discipline, communication, and change handling.</li>
             <li><strong>Baseline</strong> = approved project management plan + approved changes.</li>
             <li>Integrated change control objectives:
               <ul>
@@ -200,7 +242,7 @@ const CHAPTERS = [
             <li>Change control system documents who can change what and how.</li>
             <li>Change control board (CCB) reviews and approves/rejects change requests.</li>
             <li>Configuration management maintains correct and complete product/document descriptions.</li>
-            <li>Closing requires finalizing activities and transitioning completed/canceled work.</li>
+            <li>Closing requires finalizing activities, transitioning the final product/service/result, and updating OPA.</li>
           </ul>
         `
       }
@@ -249,9 +291,31 @@ const CHAPTERS = [
             <li><strong>Define Scope</strong>: prepare scope statement and obtain approval.</li>
             <li><strong>Create WBS</strong>: break scope into smaller controlled work packages.</li>
             <li><strong>Verify Scope</strong>: validate deliverables with stakeholders.</li>
-            <li><strong>Control Scope</strong>: evaluate and manage requested changes.</li>
+            <li><strong>Control Scope</strong>: evaluate and manage requested changes using variance analysis and disciplined approval.</li>
           </ol>
           <div class="note">Dr emphasized: WBS and scope creep control are frequent exam focus points.</div>
+        `
+      },
+      {
+        id: "w56-product-project",
+        title: "Product Scope vs Project Scope",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Aspect</th><th>Product Scope</th><th>Project Scope</th></tr></thead>
+              <tbody>
+                <tr><td>Main question</td><td>What should the deliverable be?</td><td>What work must be done?</td></tr>
+                <tr><td>Focus</td><td>Features and functions</td><td>Tasks, packages, deliverables, and control</td></tr>
+                <tr><td>Example</td><td>A system must support reporting</td><td>The team must design, build, test, and deploy reporting</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Strategic scope definition</strong> is easier than operational control during day-to-day execution.</li>
+            <li><strong>Scope is linked to quality</strong> because unclear boundaries often create rework and defects.</li>
+            <li><strong>Saying no</strong> to extra unapproved work is part of proper scope control.</li>
+          </ul>
         `
       },
       {
@@ -329,6 +393,8 @@ const CHAPTERS = [
           <ul>
             <li>Attributes include predecessors, successors, logical relationships, leads/lags, constraints, imposed dates, assumptions, and resource requirements.</li>
             <li>Dependency types: mandatory, discretionary, external.</li>
+            <li><strong>PDM</strong> (Precedence Diagramming Method) is the common modern method using FS, SS, FF, and SF.</li>
+            <li><strong>ADM</strong> (Arrow Diagramming Method) is an older activity-on-arrow method with more limited relationship flexibility.</li>
           </ul>
           <div class="table-wrap">
             <table>
@@ -338,6 +404,15 @@ const CHAPTERS = [
                 <tr><td>SS</td><td>Start to Start</td><td>Start site supervision with construction start</td></tr>
                 <tr><td>FF</td><td>Finish to Finish</td><td>Testing and coding finish together</td></tr>
                 <tr><td>SF</td><td>Start to Finish</td><td>New system starts before old one stops</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>Effort</td><td>Total amount of work</td><td>20 person-hours</td></tr>
+                <tr><td>Duration</td><td>Calendar time needed</td><td>4 working days</td></tr>
               </tbody>
             </table>
           </div>
@@ -357,6 +432,43 @@ const CHAPTERS = [
             <li>Float/slack: free float and total float represent allowable delay without target damage.</li>
           </ul>
           <div class="note">Dr emphasized: CPM vs PERT and float/slack interpretation are core exam themes.</div>
+        `
+      },
+      {
+        id: "w7-forward-pass",
+        title: "Forward Pass Example and CPM Mini Network",
+        badges: ["HIGH PRIORITY", "FORMULA", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Example:</strong> A = 5 days, B = 10 days, C = 7 days, and C depends on both A and B.</li>
+            <li>ES of C = 10 because the longest predecessor path ends at day 10.</li>
+            <li>EF of C = 17 because EF = ES + duration = 10 + 7.</li>
+            <li>A has 5 days float, while B and C have zero float.</li>
+            <li><strong>Murphy's Law:</strong> if something can go wrong, it may go wrong.</li>
+            <li><strong>Parkinson's Law:</strong> work expands to fill the time available.</li>
+            <li>Software cannot know dependencies unless the PM enters correct relationships.</li>
+          </ul>
+          <div class="diagram-card">
+            <h4>CPM Mini Network Example</h4>
+            <svg viewBox="0 0 640 170" class="svg-diagram" role="img" aria-label="Mini CPM network example showing A to C and B to C">
+              <defs>
+                <marker id="arrow-head" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                  <polygon points="0 0, 10 3.5, 0 7" fill="currentColor"></polygon>
+                </marker>
+              </defs>
+              <rect x="40" y="55" width="130" height="58" rx="12" class="diagram-node"></rect>
+              <text x="105" y="80" text-anchor="middle" class="diagram-label">A = 5 days</text>
+              <text x="105" y="98" text-anchor="middle" class="diagram-sub">Float = 5</text>
+              <rect x="220" y="18" width="130" height="58" rx="12" class="diagram-node"></rect>
+              <text x="285" y="43" text-anchor="middle" class="diagram-label">B = 10 days</text>
+              <text x="285" y="61" text-anchor="middle" class="diagram-sub">Float = 0</text>
+              <rect x="460" y="55" width="145" height="58" rx="12" class="diagram-node diagram-node--accent"></rect>
+              <text x="532" y="80" text-anchor="middle" class="diagram-label">C = 7 days</text>
+              <text x="532" y="98" text-anchor="middle" class="diagram-sub">ES = 10, EF = 17</text>
+              <line x1="170" y1="84" x2="460" y2="84" stroke="currentColor" stroke-width="3" marker-end="url(#arrow-head)"></line>
+              <line x1="350" y1="47" x2="460" y2="70" stroke="currentColor" stroke-width="3" marker-end="url(#arrow-head)"></line>
+            </svg>
+          </div>
         `
       },
       {
@@ -405,6 +517,7 @@ const CHAPTERS = [
             <li>Project cost management ensures project completion within approved budget.</li>
             <li>Processes: plan cost management, estimate costs, determine budget, control costs.</li>
             <li>Cost terms: profit, profit margin, life cycle costing, cash flow analysis.</li>
+            <li><strong>Labor</strong> is often the largest project cost.</li>
           </ul>
           <div class="table-wrap">
             <table>
@@ -421,6 +534,18 @@ const CHAPTERS = [
         `
       },
       {
+        id: "w8-plan-baseline",
+        title: "Cost Management Plan and Baseline",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Cost management plan elements:</strong> level of accuracy, units of measure, organizational procedure links, control thresholds, rules of performance measurement, reporting formats, and process descriptions.</li>
+            <li>Estimates should include <strong>detailed resource descriptions</strong>, not only total numbers.</li>
+            <li><strong>Cost baseline</strong> includes direct cost, indirect cost, and risk cost.</li>
+          </ul>
+        `
+      },
+      {
         id: "w8-estimates-reserves",
         title: "Reserves, Estimate Types, and Estimating Techniques",
         badges: ["FORMULA", "EXAM QUESTION"],
@@ -430,6 +555,7 @@ const CHAPTERS = [
             <li><strong>Management reserve</strong>: unknown-unknown risks, not in cost baseline but in total budget.</li>
             <li>Estimate types: ROM (-50% to +100%), Budgetary (-10% to +25%), Definitive (-5% to +10%).</li>
             <li>Estimating techniques: analogous, bottom-up, three-point, parametric.</li>
+            <li>Good estimates specify the people, materials, equipment, and effort assumptions behind the number.</li>
             <li>Learning curve: repeated work lowers unit cost over time.</li>
             <li>Common inaccuracy reasons: rushed estimates, low experience, optimism bias, pressure for fake precision.</li>
           </ul>
@@ -465,9 +591,12 @@ const CHAPTERS = [
           <ul>
             <li>EV below PV means behind schedule.</li>
             <li>AC above EV means over budget.</li>
+            <li><strong>AC &gt; EV</strong> = over budget, <strong>EV &gt; AC</strong> = good performance.</li>
+            <li><strong>AC = PV</strong> may look aligned with plan, but real control still depends on EV.</li>
             <li>EAC above BAC means expected overrun at completion.</li>
+            <li><strong>EAC and TCPI</strong> are highly important because they forecast final cost and required future efficiency.</li>
             <li>AC line moving left/up from baseline trend indicates worsening cost behavior.</li>
-            <li>Agile still uses cost control metrics, but tracks iteration/sprint increments continuously.</li>
+            <li>Agile still uses cost control metrics, but tracks each sprint separately using the same calculations.</li>
           </ul>
         `
       }
@@ -490,343 +619,246 @@ const CHAPTERS = [
   {
     id: "week9",
     title: "Week 9: Project Quality Management",
-    subtitle: "Planning, assuring, and controlling quality for stakeholder value and risk reduction.",
+    subtitle: "Planning quality standards, assurance mechanisms, control measures, and continuous improvement.",
     sections: [
       {
-        id: "w9-core-processes",
-        title: "Quality Definition and Processes",
-        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
-        html: `
-          <ul>
-            <li>ISO view: quality means meeting customer expectations.</li>
-            <li>Quality applies across process and output, not only final deliverable.</li>
-            <li>Three process groups in quality management:
-              <ul>
-                <li>Plan quality management</li>
-                <li>Perform quality assurance</li>
-                <li>Perform quality control</li>
-              </ul>
-            </li>
-            <li>Quality metrics define measurable standards for conformity and improvement.</li>
-          </ul>
-        `
-      },
-      {
-        id: "w9-tools",
-        title: "Seven Basic Quality Tools",
-        badges: ["DR EMPHASIZED", "EXAM QUESTION"],
-        html: `
-          <ol>
-            <li>Cause-and-effect (Fishbone/Ishikawa)</li>
-            <li>Control chart</li>
-            <li>Check sheet</li>
-            <li>Scatter diagram</li>
-            <li>Histogram</li>
-            <li>Pareto chart (80/20 rule)</li>
-            <li>Flowchart</li>
-          </ol>
-          <ul>
-            <li>Pareto prioritizes major causes first.</li>
-            <li>Fishbone helps find root causes in complex issues.</li>
-            <li>Control chart helps judge whether variation requires action.</li>
-          </ul>
-        `
-      },
-      {
-        id: "w9-sixsigma",
-        title: "Statistical Sampling, Six Sigma, and DMAIC",
+        id: "w9-core",
+        title: "Quality Definition, Process, and PM Responsibilities",
         badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
         html: `
           <ul>
-            <li>Statistical sampling studies a subset to infer quality behavior of whole population.</li>
-            <li>Six Sigma is data-driven process improvement focused on reducing defects and improving performance.</li>
-            <li>Target benchmark: about <strong>3.4 defects per million opportunities</strong>.</li>
-            <li><strong>DMAIC</strong>: Define, Measure, Analyze, Improve, Control.</li>
-            <li>Six Sigma also identifies opportunities, not only defects.</li>
+            <li><strong>Quality</strong> = degree to which deliverable meets stakeholder needs, specifications, and performance requirements.</li>
+            <li>Quality is <strong>not</strong> luxury or premium features; it is <strong>fitness for purpose</strong>.</li>
+            <li><strong>Three levels of quality management:</strong>
+              <ol>
+                <li><strong>Quality Planning</strong> (Initiating/Planning) - Define quality standards, processes, and metrics.</li>
+                <li><strong>Quality Assurance</strong> (Planning/Execution) - Evaluate whether project will satisfy quality standards.</li>
+                <li><strong>Quality Control</strong> (Monitoring/Controlling) - Monitor and test to ensure conformance.</li>
+              </ol>
+            </li>
+            <li>Quality standards must be measurable, achievable, and aligned with project objectives and business strategy.</li>
+            <li><strong>Quality vs Cost tradeoff:</strong> Higher quality often costs more upfront but reduces rework and lifecycle costs.</li>
+            <li>Project manager is accountable for embedding quality processes into all knowledge areas.</li>
+          </ul>
+          <div class="note">Dr emphasized: Quality is everyone's responsibility, not just a testing team function. Prevention is cheaper than correction.</div>
+        `
+      },
+      {
+        id: "w9-planning",
+        title: "Quality Planning and Standards",
+        badges: ["DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Quality planning inputs:</strong> Project charter, scope statement, stakeholder requirements, cost/schedule constraints.</li>
+            <li><strong>Quality planning outputs:</strong>
+              <ul>
+                <li>Quality standards and acceptance criteria</li>
+                <li>Process improvement plan</li>
+                <li>Metrics and measurement approach</li>
+                <li>Tools and inspections schedule</li>
+              </ul>
+            </li>
+            <li><strong>Quality standards examples:</strong>
+              <ul>
+                <li>Defect rate &lt; 1% in software testing</li>
+                <li>Documentation completeness 100%</li>
+                <li>Performance benchmarks (response time &lt; 2 sec)</li>
+                <li>Compliance with regulatory standards (ISO, GDPR, etc.)</li>
+              </ul>
+            </li>
+            <li>Standards should be documented in Quality Management Plan (part of Project Management Plan).</li>
+            <li>Stakeholder approval of standards reduces later disputes about acceptance.</li>
           </ul>
         `
       },
       {
-        id: "w9-iso-cost-quality",
-        title: "ISO 9000, Cost of Quality, OPM3, and Software",
-        badges: ["FORMULA", "LESS EMPHASIZED"],
+        id: "w9-assurance",
+        title: "Quality Assurance: Processes, Audits, and Improvement",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
         html: `
           <ul>
-            <li>ISO 9000 provides planning-control-documentation requirements for quality systems.</li>
-            <li><strong>Cost of quality</strong> = cost of conformance + cost of nonconformance.</li>
-            <li>Cost categories: prevention, appraisal, internal failure, external failure, measurement/test equipment.</li>
-            <li>Maturity models like OPM3 support best practices, capabilities, outcomes, and KPIs.</li>
-            <li>Software aids quality charts, statistical analysis, and tracking; tool quality depends on correct data input.</li>
+            <li><strong>Quality Assurance (QA)</strong> = continuous evaluation of processes and outputs to ensure compliance with quality standards.</li>
+            <li>QA is <strong>process-focused</strong>, not product-focused (contrast with Quality Control).</li>
+            <li><strong>Key QA activities:</strong>
+              <ul>
+                <li>Audit processes (reviews, team capability assessments)</li>
+                <li>Monitor adherence to standards and procedures</li>
+                <li>Collect lessons learned and feedback</li>
+                <li>Recommend process improvements</li>
+              </ul>
+            </li>
+            <li><strong>QA tools:</strong> Process audits, quality metrics review, checklists, peer reviews, benchmarking.</li>
+            <li><strong>Quality audit</strong> = systematic, independent examination of project processes against standards.</li>
+            <li>Audits should be <strong>non-punitive</strong>; focus is on improvement, not blame.</li>
+            <li>QA outputs feed into corrective actions (Perform Integrated Change Control process).</li>
           </ul>
-          <div class="note">Less emphasized: deep quality guru history and long ISO historical detail.</div>
+        `
+      },
+      {
+        id: "w9-control",
+        title: "Quality Control: Testing, Inspection, and Defect Management",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED", "EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>Quality Control (QC)</strong> = monitoring project outputs (deliverables) to ensure they meet quality standards.</li>
+            <li>QC is <strong>product-focused</strong>; it measures <strong>what was produced</strong>.</li>
+            <li><strong>Key QC activities:</strong>
+              <ul>
+                <li>Testing and inspections</li>
+                <li>Defect identification and logging</li>
+                <li>Accepting or rejecting deliverables</li>
+                <li>Root cause analysis for failures</li>
+              </ul>
+            </li>
+            <li><strong>QC tools:</strong> Test scripts, inspection checklists, statistical sampling, control charts, Pareto analysis.</li>
+            <li><strong>Defect:</strong> Any variation from accepted standards (e.g., bug, missing requirement, performance lag).</li>
+            <li><strong>Defect log:</strong> Tracks identified defects, severity, status, owner, resolution date.</li>
+            <li>QC must occur throughout the project, not just at end (shift-left testing principle in Agile).</li>
+            <li><strong>Cost of Poor Quality (COPQ)</strong> = cost of rework, recalls, customer dissatisfaction, reputation damage.</li>
+          </ul>
+        `
+      },
+      {
+        id: "w9-seven-tools",
+        title: "Seven Quality Tools and Statistical Methods",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Tool</th><th>Purpose</th><th>Output/Use</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Cause-Effect (Fishbone)</strong></td><td>Identify root causes of quality problems</td><td>Diagram showing factors contributing to defect</td></tr>
+                <tr><td><strong>Pareto Chart</strong></td><td>Prioritize vital few problems</td><td>Ordered bar chart showing 80/20 rule (focus on top 20% of causes)</td></tr>
+                <tr><td><strong>Histogram</strong></td><td>Show frequency distribution of data</td><td>Bar chart revealing variation patterns and normal/abnormal distribution</td></tr>
+                <tr><td><strong>Control Chart</strong></td><td>Track process performance over time</td><td>Line chart with upper/lower control limits; detect trends and out-of-control states</td></tr>
+                <tr><td><strong>Scatter Diagram</strong></td><td>Identify correlation between variables</td><td>Plot showing if two factors are related (e.g., team size vs defect rate)</td></tr>
+                <tr><td><strong>Check Sheet</strong></td><td>Collect and organize data systematically</td><td>Template for recording observations, defects, or counts</td></tr>
+                <tr><td><strong>Flowchart</strong></td><td>Map process sequence and decision points</td><td>Diagram showing steps, inputs, outputs, and loops in a process</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note"><strong>Exam tip:</strong> Be able to name each tool, explain what it does, and give an example. Fishbone + Pareto are most frequently tested.</div>
+        `
+      },
+      {
+        id: "w9-six-sigma",
+        title: "Six Sigma, DMAIC, and Process Improvement",
+        badges: ["DR EMPHASIZED", "EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>Six Sigma</strong> = data-driven methodology to reduce defects and improve process stability.</li>
+            <li>Goal: achieve 3.4 defects per million opportunities (DPMO).</li>
+            <li><strong>Six Sigma DMAIC cycle:</strong></li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Phase</th><th>Focus</th><th>Key Activities</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Define</strong></td><td>Problem statement &amp; customer need</td><td>Charter project, gather VOC (voice of customer), set goals</td></tr>
+                <tr><td><strong>Measure</strong></td><td>Current performance baseline</td><td>Collect data, establish metrics, measure variation</td></tr>
+                <tr><td><strong>Analyze</strong></td><td>Root causes of variation</td><td>Statistical analysis, hypothesis testing, identify vital few causes</td></tr>
+                <tr><td><strong>Improve</strong></td><td>Design solutions &amp; test</td><td>Brainstorm, pilot test, validate effectiveness, update process</td></tr>
+                <tr><td><strong>Control</strong></td><td>Sustain improvements</td><td>Document new process, train team, monitor KPIs, adjust as needed</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>Six Sigma roles: Champion (sponsor), Black Belt (project leader), Green Belt (team member).</li>
+            <li>Difference from Agile: Six Sigma is structured and measurement-heavy; Agile is iterative and feedback-driven.</li>
+          </ul>
+        `
+      },
+      {
+        id: "w9-cost-of-quality",
+        title: "Cost of Quality (CoQ) Analysis",
+        badges: ["EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>Cost of Quality</strong> = all costs incurred to achieve and maintain project quality.</li>
+            <li><strong>CoQ Categories:</strong>
+              <ol>
+                <li><strong>Prevention Costs</strong> (training, process design, prevention tools) - Best to invest here</li>
+                <li><strong>Appraisal Costs</strong> (inspections, testing, audits)</li>
+                <li><strong>Internal Failure Costs</strong> (rework, scrap, redesign before delivery)</li>
+                <li><strong>External Failure Costs</strong> (recalls, warranty, reputation damage, legal) - Most expensive!</li>
+              </ol>
+            </li>
+            <li><strong>CoQ Principle:</strong> Higher upfront prevention spending often reduces total CoQ by avoiding expensive failures.</li>
+            <li><strong>Example ROI:</strong> Investing AED 1000 in testing tools prevents AED 10,000 in external failure costs.</li>
+            <li>Project managers use CoQ analysis to justify quality investments to stakeholders.</li>
+            <li class="less-emphasized">Advanced: CoQ optimization targets are often 1-4% of project budget for high-reliability projects.</li>
+          </ul>
+        `
+      },
+      {
+        id: "w9-iso-maturity",
+        title: "ISO 9000, Maturity Models, and Quality Standards",
+        badges: ["LESS EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>ISO 9000 Family</strong> = international standards for quality management systems.</li>
+            <li>ISO 9001 = most common; focuses on organizational capability to deliver conforming products/services consistently.</li>
+            <li><strong>ISO 9001 elements:</strong> Process approach, leadership commitment, risk management, performance evaluation, continual improvement.</li>
+            <li><strong>Certification:</strong> Organizations undergo audit to prove compliance; certification is valid for 3 years with annual surveillance.</li>
+            <li><strong>Maturity Models</strong> (CMM, CMMI) = frameworks to assess organizational process maturity and guide improvement roadmaps.</li>
+            <li>Levels typically range from Ad-Hoc (1) to Repeatable (2) to Defined (3) to Managed (4) to Optimizing (5).</li>
+            <li>Higher maturity = more predictable, controlled, and efficient processes.</li>
+            <li class="less-emphasized">Other standards: ITIL (IT service management), TQM (Total Quality Management), PMBOK quality principles.</li>
+          </ul>
+        `
+      },
+      {
+        id: "w9-qa-vs-qc",
+        title: "Quality Assurance vs Quality Control Comparison",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Aspect</th><th>Quality Assurance (QA)</th><th>Quality Control (QC)</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Focus</strong></td><td>Process and system</td><td>Product/deliverable</td></tr>
+                <tr><td><strong>Timing</strong></td><td>Before production (preventive)</td><td>During &amp; after production (detective)</td></tr>
+                <tr><td><strong>Question Answered</strong></td><td>Are we doing things right?</td><td>Did we do it right?</td></tr>
+                <tr><td><strong>Method</strong></td><td>Audits, process reviews, inspections of methodology</td><td>Testing, inspections of output, measurements</td></tr>
+                <tr><td><strong>Output</strong></td><td>Process improvements, corrective actions, training recommendations</td><td>Accepted/rejected deliverables, defect log, quality metrics</td></tr>
+                <tr><td><strong>Mindset</strong></td><td>Proactive (prevent problems)</td><td>Reactive (detect and fix problems)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>QA is <strong>prevention-oriented</strong> and improves the process before defects occur.</li>
+            <li>QC is <strong>detection-oriented</strong> and checks whether the output conforms to requirements.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> If question asks about process audit or methodology review, it's QA. If about testing or inspection of deliverables, it's QC.</div>
         `
       }
     ],
     exam: [
       {
-        q: "Define project quality management and list its main processes.",
-        a: "Project quality management includes the processes used to ensure that project deliverables and project processes satisfy relevant quality requirements and stakeholder expectations. The main processes are planning quality management, performing quality assurance, and performing quality control. Together, they establish standards, evaluate process capability, and verify outputs. This sequence helps prevent defects early and improve performance continuously. Therefore, quality management is central to both project success and customer confidence."
+        q: "Define quality in project management and explain why it matters.",
+        a: "Quality in project management refers to the degree to which a deliverable meets stakeholder needs and specified performance requirements. Quality is not luxury but fitness for purpose; it means delivering what was promised in the way it was promised. Quality matters because poor quality leads to rework, customer dissatisfaction, reputation damage, recalls, and external failure costs that far exceed prevention investments. Therefore, integrating quality throughout the project life cycle is critical to project success and organizational value."
       },
       {
-        q: "Compare histogram and Pareto chart.",
-        a: "A histogram shows frequency distribution of data categories or variable ranges. A Pareto chart is a special ordered histogram that ranks causes from highest to lowest contribution. The Pareto format helps teams prioritize the vital few causes that create most problems, often aligned with the 80/20 principle. Both are useful, but Pareto is more decision-oriented for prioritization."
+        q: "Compare Quality Planning, Quality Assurance, and Quality Control.",
+        a: "Quality Planning (Initiating/Planning) defines what quality standards and metrics will apply to the project. Quality Assurance (Planning/Execution) continuously evaluates whether processes are capable of achieving those standards through audits and process reviews; it prevents defects. Quality Control (Monitoring/Controlling) monitors actual deliverables against standards through testing and inspection; it detects and documents defects. In sequence: plan what will be accepted, ensure the process is sound, then verify the output meets the plan. All three are necessary for comprehensive quality management."
       },
       {
-        q: "Essay: Explain Six Sigma DMAIC and why it matters.",
-        a: "Six Sigma is a disciplined, data-based approach to process improvement that aims to reduce defects and increase performance consistency. Its DMAIC cycle begins by defining the problem and customer requirements, then measuring current performance, analyzing root causes, improving the process with targeted solutions, and controlling the improved state to sustain gains. This method matters because it links statistical evidence to managerial action, reducing trial-and-error decisions. For example, in a project with recurring defects, DMAIC can isolate root causes and validate improvements through measurable indicators. In conclusion, DMAIC improves quality outcomes while strengthening organizational learning and reliability."
+        q: "Essay: Explain Six Sigma DMAIC and why organizations use it.",
+        a: "Six Sigma is a data-driven methodology aiming to reduce defects to near-zero (3.4 per million). Its DMAIC cycle begins by defining the problem and customer voice, then measures current state performance, analyzes root causes through statistics, implements targeted improvements, and controls the new state to sustain gains. Organizations use DMAIC because it replaces gut feeling with evidence, links process changes to measurable outcomes, and prevents problems from recurring. For example, a delivery company using DMAIC reduced package damage by 70% by identifying root causes and testing solutions before full rollout. Therefore, DMAIC improves reliability and customer satisfaction while strengthening continuous improvement culture."
+      },
+      {
+        q: "Compare the seven quality tools and identify when to use each.",
+        a: "Fishbone (cause-effect) diagram maps factors contributing to a problem, helping teams identify root causes in brainstorms. Pareto chart ranks causes from highest to lowest impact, supporting the 80/20 rule to focus effort on the vital few causes. Histogram shows frequency distribution to reveal patterns and abnormality. Control chart tracks process performance over time with upper and lower limits to signal when a process drifts out of control. Scatter diagram reveals correlation between variables. Check sheet collects data systematically. Flowchart maps process steps and decisions. Together they form a practical quality improvement toolkit."
+      },
+      {
+        q: "What is Cost of Quality (CoQ) and how does it guide quality investment decisions?",
+        a: "Cost of Quality includes all expenses to achieve and maintain project quality: prevention, appraisal, internal failure, and external failure costs. External failure is usually most expensive. CoQ guides investment by showing that upfront prevention spending often prevents larger external failure costs. For example, AED 1000 invested in testing tools may prevent AED 10,000 in customer recall costs. Project managers use CoQ analysis to justify quality spending as an investment that protects profitability and reputation."
       }
     ]
   },
   {
     id: "chapter12",
     title: "Chapter 12: Project Risk Management",
-      {
-        id: "week9",
-        title: "Week 9: Project Quality Management",
-        subtitle: "Planning quality standards, assurance mechanisms, control measures, and continuous improvement.",
-        sections: [
-          {
-            id: "w9-core",
-            title: "Quality Definition, Process, and PM Responsibilities",
-            badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
-            html: `
-              <ul>
-                <li><strong>Quality</strong> = degree to which deliverable meets stakeholder needs, specifications, and performance requirements.</li>
-                <li>Quality is <strong>not</strong> luxury or premium features; it is <strong>fitness for purpose</strong>.</li>
-                <li><strong>Three levels of quality management:</strong>
-                  <ol>
-                    <li><strong>Quality Planning</strong> (Initiating/Planning) - Define quality standards, processes, and metrics.</li>
-                    <li><strong>Quality Assurance</strong> (Planning/Execution) - Evaluate whether project will satisfy quality standards.</li>
-                    <li><strong>Quality Control</strong> (Monitoring/Controlling) - Monitor and test to ensure conformance.</li>
-                  </ol>
-                </li>
-                <li>Quality standards must be measurable, achievable, and aligned with project objectives and business strategy.</li>
-                <li><strong>Quality vs Cost tradeoff:</strong> Higher quality often costs more upfront but reduces rework and lifecycle costs.</li>
-                <li>Project manager is accountable for embedding quality processes into all knowledge areas.</li>
-              </ul>
-              <div class="note">Dr emphasized: Quality is everyone's responsibility, not just a testing team function. Prevention is cheaper than correction.</div>
-            `
-          },
-          {
-            id: "w9-planning",
-            title: "Quality Planning and Standards",
-            badges: ["DR EMPHASIZED"],
-            html: `
-              <ul>
-                <li><strong>Quality planning inputs:</strong> Project charter, scope statement, stakeholder requirements, cost/schedule constraints.</li>
-                <li><strong>Quality planning outputs:</strong>
-                  <ul>
-                    <li>Quality standards and acceptance criteria</li>
-                    <li>Process improvement plan</li>
-                    <li>Metrics and measurement approach</li>
-                    <li>Tools and inspections schedule</li>
-                  </ul>
-                </li>
-                <li><strong>Quality standards examples:</strong>
-                  <ul>
-                    <li>Defect rate < 1% in software testing</li>
-                    <li>Documentation completeness 100%</li>
-                    <li>Performance benchmarks (response time < 2 sec)</li>
-                    <li>Compliance with regulatory standards (ISO, GDPR, etc.)</li>
-                  </ul>
-                </li>
-                <li>Standards should be documented in Quality Management Plan (part of Project Management Plan).</li>
-                <li>Stakeholder approval of standards reduces later disputes about acceptance.</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-assurance",
-            title: "Quality Assurance: Processes, Audits, and Improvement",
-            badges: ["HIGH PRIORITY", "EXAM QUESTION"],
-            html: `
-              <ul>
-                <li><strong>Quality Assurance (QA)</strong> = continuous evaluation of processes and outputs to ensure compliance with quality standards.</li>
-                <li>QA is <strong>process-focused</strong>, not product-focused (contrast with Quality Control).</li>
-                <li><strong>Key QA activities:</strong>
-                  <ul>
-                    <li>Audit processes (reviews, team capability assessments)</li>
-                    <li>Monitor adherence to standards and procedures</li>
-                    <li>Collect lessons learned and feedback</li>
-                    <li>Recommend process improvements</li>
-                  </ul>
-                </li>
-                <li><strong>QA tools:</strong> Process audits, quality metrics review, checklists, peer reviews, benchmarking.</li>
-                <li><strong>Quality audit</strong> = systematic, independent examination of project processes against standards.</li>
-                <li>Audits should be <strong>non-punitive</strong>; focus is on improvement, not blame.</li>
-                <li>QA outputs feed into corrective actions (Perform Integrated Change Control process).</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-control",
-            title: "Quality Control: Testing, Inspection, and Defect Management",
-            badges: ["HIGH PRIORITY", "DR EMPHASIZED", "EXAM QUESTION"],
-            html: `
-              <ul>
-                <li><strong>Quality Control (QC)</strong> = monitoring project outputs (deliverables) to ensure they meet quality standards.</li>
-                <li>QC is <strong>product-focused</strong>; it measures <strong>what was produced</strong>.</li>
-                <li><strong>Key QC activities:</strong>
-                  <ul>
-                    <li>Testing and inspections</li>
-                    <li>Defect identification and logging</li>
-                    <li>Accepting or rejecting deliverables</li>
-                    <li>Root cause analysis for failures</li>
-                  </ul>
-                </li>
-                <li><strong>QC tools:</strong> Test scripts, inspection checklists, statistical sampling, control charts, Pareto analysis.</li>
-                <li><strong>Defect:</strong> Any variation from accepted standards (e.g., bug, missing requirement, performance lag).</li>
-                <li><strong>Defect log:</strong> Tracks identified defects, severity, status, owner, resolution date.</li>
-                <li>QC must occur throughout the project, not just at end (shift-left testing principle in Agile).</li>
-                <li><strong>Cost of Poor Quality (COPQ)</strong> = cost of rework, recalls, customer dissatisfaction, reputation damage.</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-seven-tools",
-            title: "Seven Quality Tools and Statistical Methods",
-            badges: ["HIGH PRIORITY", "EXAM QUESTION"],
-            html: `
-              <div class="table-wrap">
-                <table>
-                  <thead><tr><th>Tool</th><th>Purpose</th><th>Output/Use</th></tr></thead>
-                  <tbody>
-                    <tr><td><strong>Cause-Effect (Fishbone)</strong></td><td>Identify root causes of quality problems</td><td>Diagram showing factors contributing to defect</td></tr>
-                    <tr><td><strong>Pareto Chart</strong></td><td>Prioritize vital few problems</td><td>Ordered bar chart showing 80/20 rule (focus on top 20% of causes)</td></tr>
-                    <tr><td><strong>Histogram</strong></td><td>Show frequency distribution of data</td><td>Bar chart revealing variation patterns and normal/abnormal distribution</td></tr>
-                    <tr><td><strong>Control Chart</strong></td><td>Track process performance over time</td><td>Line chart with upper/lower control limits; detect trends and out-of-control states</td></tr>
-                    <tr><td><strong>Scatter Diagram</strong></td><td>Identify correlation between variables</td><td>Plot showing if two factors are related (e.g., team size vs defect rate)</td></tr>
-                    <tr><td><strong>Check Sheet</strong></td><td>Collect and organize data systematically</td><td>Template for recording observations, defects, or counts</td></tr>
-                    <tr><td><strong>Flowchart</strong></td><td>Map process sequence and decision points</td><td>Diagram showing steps, inputs, outputs, and loops in a process</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="note"><strong>Exam tip:</strong> Be able to name each tool, explain what it does, and give an example. Fishbone + Pareto are most frequently tested.</div>
-            `
-          },
-          {
-            id: "w9-six-sigma",
-            title: "Six Sigma, DMAIC, and Process Improvement",
-            badges: ["DR EMPHASIZED", "EXAM QUESTION"],
-            html: `
-              <ul>
-                <li><strong>Six Sigma</strong> = data-driven methodology to reduce defects and improve process stability.</li>
-                <li>Goal: achieve 3.4 defects per million opportunities (DPMO).</li>
-                <li><strong>Six Sigma DMAIC cycle:</strong></li>
-              </ul>
-              <div class="table-wrap">
-                <table>
-                  <thead><tr><th>Phase</th><th>Focus</th><th>Key Activities</th></tr></thead>
-                  <tbody>
-                    <tr><td><strong>Define</strong></td><td>Problem statement &amp; customer need</td><td>Charter project, gather VOC (voice of customer), set goals</td></tr>
-                    <tr><td><strong>Measure</strong></td><td>Current performance baseline</td><td>Collect data, establish metrics, measure variation</td></tr>
-                    <tr><td><strong>Analyze</strong></td><td>Root causes of variation</td><td>Statistical analysis, hypothesis testing, identify vital few causes</td></tr>
-                    <tr><td><strong>Improve</strong></td><td>Design solutions &amp; test</td><td>Brainstorm, pilot test, validate effectiveness, update process</td></tr>
-                    <tr><td><strong>Control</strong></td><td>Sustain improvements</td><td>Document new process, train team, monitor KPIs, adjust as needed</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <ul>
-                <li>Six Sigma roles: Champion (sponsor), Black Belt (project leader), Green Belt (team member).</li>
-                <li>Difference from Agile: Six Sigma is structured and measurement-heavy; Agile is iterative and feedback-driven.</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-cost-of-quality",
-            title: "Cost of Quality (CoQ) Analysis",
-            badges: ["EXAM QUESTION"],
-            html: `
-              <ul>
-                <li><strong>Cost of Quality</strong> = all costs incurred to achieve and maintain project quality.</li>
-                <li><strong>CoQ Categories:</strong>
-                  <ol>
-                    <li><strong>Prevention Costs</strong> (training, process design, prevention tools) - Best to invest here</li>
-                    <li><strong>Appraisal Costs</strong> (inspections, testing, audits)</li>
-                    <li><strong>Internal Failure Costs</strong> (rework, scrap, redesign before delivery)</li>
-                    <li><strong>External Failure Costs</strong> (recalls, warranty, reputation damage, legal) - Most expensive!</li>
-                  </ol>
-                </li>
-                <li><strong>CoQ Principle:</strong> Higher upfront prevention spending often reduces total CoQ by avoiding expensive failures.</li>
-                <li><strong>Example ROI:</strong> Investing AED 1000 in testing tools prevents AED 10,000 in external failure costs.</li>
-                <li>Project managers use CoQ analysis to justify quality investments to stakeholders.</li>
-                <li class="less-emphasized">Advanced: CoQ optimization targets are often 1-4% of project budget for high-reliability projects.</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-iso-maturity",
-            title: "ISO 9000, Maturity Models, and Quality Standards",
-            badges: ["LESS EMPHASIZED"],
-            html: `
-              <ul>
-                <li><strong>ISO 9000 Family</strong> = international standards for quality management systems.</li>
-                <li>ISO 9001 = most common; focuses on organizational capability to deliver conforming products/services consistently.</li>
-                <li><strong>ISO 9001 elements:</strong> Process approach, leadership commitment, risk management, performance evaluation, continual improvement.</li>
-                <li><strong>Certification:</strong> Organizations undergo audit to prove compliance; certification is valid for 3 years with annual surveillance.</li>
-                <li><strong>Maturity Models</strong> (CMM, CMMI) = frameworks to assess organizational process maturity and guide improvement roadmaps.</li>
-                <li>Levels typically range from Ad-Hoc (1) → Repeatable (2) → Defined (3) → Managed (4) → Optimizing (5).</li>
-                <li>Higher maturity = more predictable, controlled, and efficient processes.</li>
-                <li class="less-emphasized">Other standards: ITIL (IT service management), TQM (Total Quality Management), PMBOK quality principles.</li>
-              </ul>
-            `
-          },
-          {
-            id: "w9-qa-vs-qc",
-            title: "Quality Assurance vs Quality Control Comparison",
-            badges: ["HIGH PRIORITY", "EXAM QUESTION"],
-            html: `
-              <div class="table-wrap">
-                <table>
-                  <thead><tr><th>Aspect</th><th>Quality Assurance (QA)</th><th>Quality Control (QC)</th></tr></thead>
-                  <tbody>
-                    <tr><td><strong>Focus</strong></td><td>Process and system</td><td>Product/deliverable</td></tr>
-                    <tr><td><strong>Timing</strong></td><td>Before production (preventive)</td><td>During &amp; after production (detective)</td></tr>
-                    <tr><td><strong>Question Answered</strong></td><td>Are we doing things right?</td><td>Did we do it right?</td></tr>
-                    <tr><td><strong>Method</strong></td><td>Audits, process reviews, inspections of methodology</td><td>Testing, inspections of output, measurements</td></tr>
-                    <tr><td><strong>Output</strong></td><td>Process improvements, corrective actions, training recommendations</td><td>Accepted/rejected deliverables, defect log, quality metrics</td></tr>
-                    <tr><td><strong>Mindset</strong></td><td>Proactive (prevent problems)</td><td>Reactive (detect and fix problems)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="note"><strong>Exam tip:</strong> If question asks about process audit or methodology review, it's QA. If about testing or inspection of deliverables, it's QC.</div>
-            `
-          }
-        ],
-        exam: [
-          {
-            q: "Define quality in project management and explain why it matters.",
-            a: "Quality in project management refers to the degree to which a deliverable meets stakeholder needs and specified performance requirements. Quality is not luxury but fitness for purpose—it means delivering what was promised in the way it was promised. Quality matters because poor quality leads to rework, customer dissatisfaction, reputation damage, recalls, and external failure costs that far exceed prevention investments. Therefore, integrating quality throughout the project life cycle is critical to project success and organizational value."
-          },
-          {
-            q: "Compare Quality Planning, Quality Assurance, and Quality Control.",
-            a: "Quality Planning (Initiating/Planning) defines what quality standards and metrics will apply to the project. Quality Assurance (Planning/Execution) continuously evaluates whether processes are capable of achieving those standards through audits and process reviews—it prevents defects. Quality Control (Monitoring/Controlling) monitors actual deliverables against standards through testing and inspection—it detects and documents defects. In sequence: Plan what we'll accept → QA ensures process is sound → QC verifies output meets the plan. All three are necessary for comprehensive quality management."
-          },
-          {
-            q: "Essay: Explain Six Sigma DMAIC and why organizations use it.",
-            a: "Six Sigma is a data-driven methodology aiming to reduce defects to near-zero (3.4 per million). Its DMAIC cycle begins by defining the problem and customer voice, then measures current state performance, analyzes root causes through statistics, implements targeted improvements, and controls the new state to sustain gains. Organizations use DMAIC because it replaces gut feeling with evidence, links process changes to measurable outcomes, and prevents problems from recurring. For example, a delivery company using DMAIC reduced package damage by 70% by identifying root causes (rough sorting) and testing solutions before full rollout. Therefore, DMAIC improves reliability and customer satisfaction while strengthening continuous improvement culture."
-          },
-          {
-            q: "Compare the seven quality tools and identify when to use each.",
-            a: "Fishbone (cause-effect) diagram maps factors contributing to a problem, helping teams identify root causes in brainstorms. Pareto chart ranks causes from highest to lowest impact, supporting the 80/20 rule to focus effort on vital few causes. Histogram shows frequency distribution to reveal patterns and abnormality. Control chart tracks process performance over time with upper/lower limits to signal when process drifts out of control. Scatter diagram reveals correlation between variables. Check sheet collects data systematically. Flowchart maps process steps and decisions. Use Fishbone to explore causes, Pareto to prioritize, Histogram/Control Chart to monitor trends, Scatter to find relationships, Check Sheet for data collection, Flowchart to understand process logic. Together they form a complete quality improvement toolkit."
-          },
-          {
-            q: "What is Cost of Quality (CoQ) and how does it guide quality investment decisions?",
-            a: "Cost of Quality includes all expenses to achieve and maintain project quality: prevention (training, tools), appraisal (inspection, testing), internal failure (rework, scrap), and external failure (recalls, warranty, reputation damage). External failure is most expensive. CoQ guides investment by showing that upfront prevention spending often prevents larger external failure costs—for example, AED 1000 in testing tools might prevent AED 10,000 in customer recalls. Project managers use CoQ analysis to justify quality spending to stakeholders by proving that quality is an investment, not expense, that improves profitability and reputation."
-          }
-        ]
-      },
-      {
-        id: "chapter12",
-        title: "Chapter 12: Project Risk Management",
-        subtitle: "Identifying, analyzing, responding to, and controlling uncertainty.",
-        sections: [
-          {
-            id: "c12-core",
-            title: "Risk Definition, Utility, and Tolerance",
-            badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
-            html: `
-              <ul>
     subtitle: "Identifying, analyzing, responding to, and controlling uncertainty.",
     sections: [
       {
@@ -839,6 +871,8 @@ const CHAPTERS = [
             <li><strong>Risk utility</strong> is stakeholder satisfaction under uncertainty (risk-averse, risk-seeking, risk-neutral behavior).</li>
             <li><strong>Risk tolerance</strong> means how much risk a stakeholder is willing to accept.</li>
             <li>Risk should be managed continuously, not as a one-time checklist.</li>
+            <li><strong>Risk appetite</strong> is the level of uncertainty the organization is willing to pursue or retain.</li>
+            <li><strong>Risk threshold</strong> is the point where a specific risk becomes unacceptable and action is required.</li>
           </ul>
         `
       },
@@ -872,6 +906,7 @@ const CHAPTERS = [
             <li>Identification tools: brainstorming, Delphi, interviewing, SWOT.</li>
             <li>Risk register contains risk ID, rank, description, category, root cause, trigger, response, owner, probability/impact, status.</li>
             <li>Watch list tracks low-priority risks for monitoring.</li>
+            <li><strong>Triggers</strong> are warning signs that show a risk is becoming more likely or is about to occur.</li>
           </ul>
         `
       },
@@ -887,7 +922,27 @@ const CHAPTERS = [
             <li>Positive risk responses: exploit, share, enhance, accept.</li>
             <li>Workarounds are unplanned responses when no contingency exists.</li>
             <li>Control outputs include change requests, performance updates, plan/document updates, and OPA updates.</li>
+            <li><strong>Contingency plans</strong> are prepared in advance; <strong>fallback plans</strong> are used if the original response fails.</li>
           </ul>
+          <div class="diagram-card">
+            <h4>Probability-Impact Matrix</h4>
+            <div class="matrix-grid">
+              <div class="matrix-axis matrix-axis--vertical">Impact</div>
+              <div class="matrix-board">
+                <div class="matrix-cell med">High impact<br>Low probability</div>
+                <div class="matrix-cell high">High impact<br>Medium probability</div>
+                <div class="matrix-cell critical">High impact<br>High probability</div>
+                <div class="matrix-cell low">Medium impact<br>Low probability</div>
+                <div class="matrix-cell med">Medium impact<br>Medium probability</div>
+                <div class="matrix-cell high">Medium impact<br>High probability</div>
+                <div class="matrix-cell low">Low impact<br>Low probability</div>
+                <div class="matrix-cell low">Low impact<br>Medium probability</div>
+                <div class="matrix-cell med">Low impact<br>High probability</div>
+              </div>
+              <div></div>
+              <div class="matrix-axis">Probability</div>
+            </div>
+          </div>
           <div class="note">Less emphasized: very detailed Monte Carlo step-by-step mechanics; focus on purpose and interpretation.</div>
         `
       }
@@ -903,7 +958,7 @@ const CHAPTERS = [
       },
       {
         q: "Essay: Explain risk response strategies for threats and opportunities.",
-        a: "After identifying and analyzing risks, project teams select response strategies based on impact, probability, and cost-effectiveness. For negative risks, strategies include avoidance, acceptance, transfer, and mitigation. For positive risks, strategies include exploitation, sharing, enhancement, and acceptance. The selected strategy should be documented with clear ownership, triggers, and contingency/fallback logic. For example, a technology delay risk might be mitigated with phased testing and vendor backup options. In conclusion, appropriate response strategy selection converts risk analysis into practical project control and better outcome achievement."
+        a: "After identifying and analyzing risks, project teams select response strategies based on impact, probability, and cost-effectiveness. For negative risks, strategies include avoidance, acceptance, transfer, and mitigation. For positive risks, strategies include exploitation, sharing, enhancement, and acceptance. The selected strategy should be documented with clear ownership, triggers, and contingency or fallback logic. For example, a technology delay risk might be mitigated with phased testing and vendor backup options. In conclusion, appropriate response strategy selection converts risk analysis into practical project control and better outcome achievement."
       }
     ]
   },
@@ -922,6 +977,7 @@ const CHAPTERS = [
             <li>Strong engagement reduces complexity and increases project success likelihood.</li>
             <li>Poor stakeholder handling causes conflict, low motivation, delays, and possible project stoppage.</li>
             <li>Success is not only deadline compliance; stakeholder satisfaction and expectation alignment matter.</li>
+            <li>Communication objectives include informing, engaging, influencing, and securing decisions.</li>
           </ul>
         `
       },
@@ -955,6 +1011,22 @@ const CHAPTERS = [
             <li>Neutral stakeholders may reduce momentum; resistant stakeholders need root-cause handling.</li>
             <li>Supportive and leading stakeholders should be protected and actively involved.</li>
           </ul>
+          <div class="diagram-card">
+            <h4>Power-Interest Grid</h4>
+            <svg viewBox="0 0 720 350" class="svg-diagram" role="img" aria-label="Stakeholder power interest grid">
+              <rect x="120" y="40" width="500" height="240" class="diagram-panel"></rect>
+              <line x1="370" y1="40" x2="370" y2="280" stroke="currentColor" stroke-width="3"></line>
+              <line x1="120" y1="160" x2="620" y2="160" stroke="currentColor" stroke-width="3"></line>
+              <text x="70" y="175" class="diagram-label">High Power</text>
+              <text x="70" y="315" class="diagram-label">Low Power</text>
+              <text x="250" y="325" class="diagram-label">Low Interest</text>
+              <text x="455" y="325" class="diagram-label">High Interest</text>
+              <text x="210" y="105" text-anchor="middle" class="diagram-label">Keep Satisfied</text>
+              <text x="495" y="105" text-anchor="middle" class="diagram-label">Manage Closely</text>
+              <text x="210" y="225" text-anchor="middle" class="diagram-label">Monitor</text>
+              <text x="495" y="225" text-anchor="middle" class="diagram-label">Keep Informed</text>
+            </svg>
+          </div>
         `
       },
       {
@@ -969,6 +1041,7 @@ const CHAPTERS = [
             <li>Kick-off meetings should be active dialogue sessions, not passive attendance events.</li>
             <li>Good practice: clarify roles early, explain consequences, avoid surprises, keep contingency plans.</li>
             <li>You cannot fully control stakeholders, but you can control engagement mechanisms.</li>
+            <li>Different stakeholders may need different formats: dashboards for executives, detailed reports for specialists, and escalation notes for sponsors.</li>
           </ul>
           <div class="note">Dr emphasized: communication quality and expectation alignment with powerful stakeholders.</div>
         `
@@ -1020,6 +1093,41 @@ const LESS_EMPHASIS = [
 
 let activePageId = "dashboard";
 
+function debounce(callback, delay) {
+  let timeoutId;
+  return (...args) => {
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => callback(...args), delay);
+  };
+}
+
+function isMobileViewport() {
+  return window.innerWidth <= 768;
+}
+
+function syncMobileSidebarState(isOpen) {
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = el("mobile-overlay");
+  const hamburger = el("hamburger-menu");
+
+  if (!sidebar || !overlay || !hamburger) return;
+
+  sidebar.classList.toggle("open", isOpen);
+  overlay.hidden = !isOpen;
+  document.body.classList.toggle("sidebar-open", isOpen);
+  hamburger.setAttribute("aria-expanded", String(isOpen));
+}
+
+function closeMobileSidebar() {
+  syncMobileSidebarState(false);
+}
+
+function toggleMobileSidebar() {
+  const sidebar = document.querySelector(".sidebar");
+  if (!sidebar) return;
+  syncMobileSidebarState(!sidebar.classList.contains("open"));
+}
+
 function el(id) {
   return document.getElementById(id);
 }
@@ -1046,7 +1154,8 @@ function buildSidebar() {
   const links = [
     { id: "dashboard", label: "Dashboard" },
     ...CHAPTERS.map((chapter) => ({ id: chapter.id, label: chapter.title })),
-    { id: "exam-focus", label: "Exam Focus" }
+    { id: "exam-focus", label: "Exam Focus" },
+    { id: "formula-sheet", label: "Formula Sheet" }
   ];
 
   const studied = getStudiedSet();
@@ -1090,6 +1199,21 @@ function buildDashboard() {
     `;
     holder.appendChild(card);
   });
+
+  const formulaCard = document.createElement("article");
+  formulaCard.className = "chapter-card chapter-card--formula";
+  formulaCard.innerHTML = `
+    <h3>Quick Formula Revision</h3>
+    <p>Open the standalone Formula Sheet for EVM, ROI, PERT, and quick decision rules.</p>
+    <div class="badge-row">
+      <span class="badge formula">FORMULA</span>
+      <span class="badge high-priority">HIGH PRIORITY</span>
+    </div>
+    <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="go-btn" data-go="formula-sheet">Open Formula Sheet</button>
+    </div>
+  `;
+  holder.appendChild(formulaCard);
 
   holder.querySelectorAll(".go-btn").forEach((btn) => {
     btn.addEventListener("click", () => navigateTo(btn.dataset.go));
@@ -1230,104 +1354,99 @@ function buildPages() {
       ${paginationMarkup("chapter14")}
     </section>
   `;
-   // Formula Sheet page
-   const formulaSheet = document.createElement("section");
-   formulaSheet.className = "page";
-   formulaSheet.id = "formula-sheet";
-   formulaSheet.innerHTML = `
-     <section class="exam-focus-box">
-       <h2>Formula Sheet & Quick Reference</h2>
-       <p>All key formulas for project management with variables, interpretations, and quick examples. <strong>Print-friendly.</strong></p>
-       
-       <h3 style="margin-top: 20px;">Earned Value Management (EVM)</h3>
-       
-       <div class="formula-card">
-         <h3>Cost Variance (CV)</h3>
-         <div class="formula-display">CV = EV - AC</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> If CV > 0, under budget. If CV < 0, over budget.</div>
-       </div>
+  const formulaSheet = el("formula-sheet");
+  formulaSheet.innerHTML = `
+    <section class="exam-focus-box">
+      <h2>Formula Sheet & Quick Reference</h2>
+      <p>All key formulas for project management with variables, interpretations, and quick examples. <strong>Print-friendly.</strong></p>
 
-       <div class="formula-card">
-         <h3>Schedule Variance (SV)</h3>
-         <div class="formula-display">SV = EV - PV</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> If SV > 0, ahead of schedule. If SV < 0, behind schedule.</div>
-       </div>
+      <h3 style="margin-top: 20px;">Earned Value Management (EVM)</h3>
 
-       <div class="formula-card">
-         <h3>Cost Performance Index (CPI)</h3>
-         <div class="formula-display">CPI = EV / AC</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> CPI > 1 = efficient. CPI < 1 = inefficient. CPI = 1 = perfect efficiency.</div>
-       </div>
+      <div class="formula-grid">
+        <div class="formula-card">
+          <h3>Cost Variance (CV)</h3>
+          <div class="formula-display">CV = EV - AC</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> If CV > 0, under budget. If CV < 0, over budget.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>Schedule Performance Index (SPI)</h3>
-         <div class="formula-display">SPI = EV / PV</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> SPI > 1 = ahead. SPI < 1 = behind. SPI = 1 = on schedule.</div>
-       </div>
+        <div class="formula-card">
+          <h3>Schedule Variance (SV)</h3>
+          <div class="formula-display">SV = EV - PV</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> If SV > 0, ahead of schedule. If SV < 0, behind schedule.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>Estimate at Completion (EAC)</h3>
-         <div class="formula-display">EAC = BAC / CPI</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>CPI = Cost Performance Index</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> Forecasts total project cost based on current performance. If EAC > BAC, project will overrun.</div>
-       </div>
+        <div class="formula-card">
+          <h3>Cost Performance Index (CPI)</h3>
+          <div class="formula-display">CPI = EV / AC</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> CPI > 1 = efficient. CPI < 1 = inefficient. CPI = 1 = perfect efficiency.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>Estimate to Complete (ETC)</h3>
-         <div class="formula-display">ETC = EAC - AC</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>EAC = Estimate at Completion</li><li>AC = Actual Cost</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> Remaining budget needed to complete project.</div>
-       </div>
+        <div class="formula-card">
+          <h3>Schedule Performance Index (SPI)</h3>
+          <div class="formula-display">SPI = EV / PV</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> SPI > 1 = ahead. SPI < 1 = behind. SPI = 1 = on schedule.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>To-Complete Performance Index (TCPI)</h3>
-         <div class="formula-display">TCPI = (BAC - EV) / (BAC - AC)</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-         <div class="formula-interpretation"><strong>Interpretation:</strong> Required cost efficiency to meet target budget. TCPI > 1 = must improve. TCPI < 1 = can relax.</div>
-       </div>
+        <div class="formula-card">
+          <h3>Estimate at Completion (EAC)</h3>
+          <div class="formula-display">EAC = BAC / CPI</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>CPI = Cost Performance Index</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> Forecasts total project cost based on current performance. If EAC > BAC, project will overrun.</div>
+        </div>
 
-       <h3 style="margin-top: 20px;">Other Key Formulas</h3>
+        <div class="formula-card">
+          <h3>Estimate to Complete (ETC)</h3>
+          <div class="formula-display">ETC = EAC - AC</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EAC = Estimate at Completion</li><li>AC = Actual Cost</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> Remaining budget needed to complete project.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>Return on Investment (ROI)</h3>
-         <div class="formula-display">ROI = (Benefits - Costs) / Costs × 100%</div>
-         <div class="formula-vars"><strong>Example:</strong> If project costs AED 100K and returns AED 150K, ROI = (150-100)/100 = 50%</div>
-       </div>
+        <div class="formula-card">
+          <h3>To-Complete Performance Index (TCPI)</h3>
+          <div class="formula-display">TCPI = (BAC - EV) / (BAC - AC)</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> Required cost efficiency to meet target budget. TCPI > 1 = must improve. TCPI < 1 = can relax.</div>
+        </div>
 
-       <div class="formula-card">
-         <h3>PERT Expected Duration</h3>
-         <div class="formula-display">Expected Duration = (O + 4M + P) / 6</div>
-         <div class="formula-vars"><strong>Variables:</strong><ul><li>O = Optimistic estimate</li><li>M = Most likely estimate</li><li>P = Pessimistic estimate</li></ul></div>
-         <div class="formula-interpretation"><strong>Example:</strong> Task estimates: Optimistic 2 days, Most likely 5 days, Pessimistic 8 days. Expected = (2 + 20 + 8) / 6 = 5 days</div>
-       </div>
+        <div class="formula-card">
+          <h3>Return on Investment (ROI)</h3>
+          <div class="formula-display">ROI = (Benefits - Costs) / Costs × 100%</div>
+          <div class="formula-vars"><strong>Example:</strong> If project costs AED 100K and returns AED 150K, ROI = (150-100)/100 = 50%</div>
+        </div>
 
-       <h3 style="margin-top: 20px; margin-bottom: 20px;">Quick Decision Rules</h3>
-       <div class="table-wrap">
-         <table>
-           <thead><tr><th>Indicator</th><th>Meaning</th><th>Action</th></tr></thead>
-           <tbody>
-             <tr><td>CV < 0</td><td>Over budget</td><td>Reduce scope, find cost savings, or request budget increase</td></tr>
-             <tr><td>SV < 0</td><td>Behind schedule</td><td>Accelerate tasks, add resources, or reduce scope</td></tr>
-             <tr><td>CPI < 1</td><td>Inefficient spending</td><td>Review cost controls, investigate waste</td></tr>
-             <tr><td>SPI < 1</td><td>Inefficient schedule progress</td><td>Evaluate resource constraints, dependencies</td></tr>
-             <tr><td>EAC > BAC</td><td>Project will overrun budget</td><td>Implement corrective actions or request change</td></tr>
-             <tr><td>TCPI > 1</td><td>Must improve efficiency</td><td>Prioritize high-impact cost reductions</td></tr>
-           </tbody>
-         </table>
-       </div>
+        <div class="formula-card">
+          <h3>PERT Expected Duration</h3>
+          <div class="formula-display">Expected Duration = (O + 4M + P) / 6</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>O = Optimistic estimate</li><li>M = Most likely estimate</li><li>P = Pessimistic estimate</li></ul></div>
+          <div class="formula-interpretation"><strong>Example:</strong> Task estimates: Optimistic 2 days, Most likely 5 days, Pessimistic 8 days. Expected = (2 + 20 + 8) / 6 = 5 days</div>
+        </div>
+      </div>
 
-       <nav class="pagination" aria-label="Formula sheet navigation">
-         <button type="button" data-nav="chapter14">Back to Chapter 14</button>
-         <button type="button" data-nav="dashboard">Dashboard</button>
-       </nav>
-     </section>
-   `;
-   pagesHost.appendChild(formulaSheet);
- }
+      <h3 style="margin-top: 20px; margin-bottom: 20px;">Quick Decision Rules</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Indicator</th><th>Meaning</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>CV &lt; 0</td><td>Over budget</td><td>Reduce scope, find cost savings, or request budget increase</td></tr>
+            <tr><td>SV &lt; 0</td><td>Behind schedule</td><td>Accelerate tasks, add resources, or reduce scope</td></tr>
+            <tr><td>CPI &lt; 1</td><td>Inefficient spending</td><td>Review cost controls, investigate waste</td></tr>
+            <tr><td>SPI &lt; 1</td><td>Inefficient schedule progress</td><td>Evaluate resource constraints, dependencies</td></tr>
+            <tr><td>EAC &gt; BAC</td><td>Project will overrun budget</td><td>Implement corrective actions or request change</td></tr>
+            <tr><td>TCPI &gt; 1</td><td>Must improve efficiency</td><td>Prioritize high-impact cost reductions</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <nav class="pagination" aria-label="Formula sheet navigation">
+        <button type="button" data-nav="chapter14">Back to Chapter 14</button>
+        <button type="button" data-nav="dashboard">Dashboard</button>
+      </nav>
+    </section>
+  `;
 }
 
 function getAccordionContent(item) {
@@ -1472,10 +1591,11 @@ function highlightTerm(root, query) {
 }
 
 function navigateTo(pageId, sectionId = null, highlight = "") {
-  activePageId = pageId;
-  document.querySelectorAll(".page").forEach((page) => page.classList.remove("active"));
   const target = el(pageId);
   if (!target) return;
+
+  activePageId = pageId;
+  document.querySelectorAll(".page").forEach((page) => page.classList.remove("active"));
   target.classList.add("active");
 
   document.querySelectorAll(".nav-link").forEach((link) => {
@@ -1488,12 +1608,34 @@ function navigateTo(pageId, sectionId = null, highlight = "") {
     const section = target.querySelector(`[data-section-id="${sectionId}"]`);
     if (section) {
       toggleAccordion(section, true);
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
       if (highlight) highlightTerm(section, highlight);
+      const hiddenHit = section.querySelector("mark.search-hit")?.closest(".less-emphasized");
+      if (hiddenHit && document.documentElement.classList.contains("quick-revision-active")) {
+        setQuickRevisionMode(false);
+      }
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   } else {
     clearHighlights(target);
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (highlight) {
+      highlightTerm(target, highlight);
+      const hiddenHit = target.querySelector("mark.search-hit")?.closest(".less-emphasized");
+      if (hiddenHit && document.documentElement.classList.contains("quick-revision-active")) {
+        setQuickRevisionMode(false);
+      }
+      const firstHit = target.querySelector("mark.search-hit");
+      if (firstHit) {
+        firstHit.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  if (isMobileViewport()) {
+    closeMobileSidebar();
   }
 }
 
@@ -1529,6 +1671,14 @@ function textFromHtml(html) {
   return div.textContent || div.innerText || "";
 }
 
+function normalizeSearchText(value) {
+  return String(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function buildSearchIndex() {
   const index = [];
   CHAPTERS.forEach((chapter) => {
@@ -1538,7 +1688,7 @@ function buildSearchIndex() {
         chapterTitle: chapter.title,
         sectionId: section.id,
         sectionTitle: section.title,
-        haystack: `${chapter.title} ${section.title} ${textFromHtml(section.html)}`.toLowerCase()
+        haystack: normalizeSearchText(`${chapter.title} ${chapter.subtitle} ${section.title} ${section.badges.join(" ")} ${textFromHtml(section.html)}`)
       });
     });
     chapter.exam.forEach((item, idx) => {
@@ -1547,7 +1697,7 @@ function buildSearchIndex() {
         chapterTitle: chapter.title,
         sectionId: "exam-section",
         sectionTitle: `Exam Q${idx + 1}`,
-        haystack: `${chapter.title} ${item.q} ${item.a}`.toLowerCase()
+        haystack: normalizeSearchText(`${chapter.title} ${item.q} ${item.a}`)
       });
     });
   });
@@ -1557,7 +1707,15 @@ function buildSearchIndex() {
     chapterTitle: "Exam Focus",
     sectionId: "",
     sectionTitle: "High-Yield Topics",
-    haystack: `${HIGH_EMPHASIS.join(" ")} ${LESS_EMPHASIS.join(" ")}`.toLowerCase()
+    haystack: normalizeSearchText(`${textFromHtml(el("exam-focus")?.innerHTML || "")} ${HIGH_EMPHASIS.join(" ")} ${LESS_EMPHASIS.join(" ")}`)
+  });
+
+  index.push({
+    chapterId: "formula-sheet",
+    chapterTitle: "Formula Sheet",
+    sectionId: "",
+    sectionTitle: "Quick Formula Revision",
+    haystack: normalizeSearchText(`${textFromHtml(el("formula-sheet")?.innerHTML || "")} quick formula revision formula sheet evm roi pert tcpi cpi spi formulas`)
   });
 
   return index;
@@ -1566,10 +1724,11 @@ function buildSearchIndex() {
 function bindGlobalSearch() {
   const input = el("global-search");
   const resultsBox = el("search-results");
-  const index = buildSearchIndex();
-
-  input.addEventListener("input", () => {
-    const query = input.value.trim().toLowerCase();
+  const runSearch = debounce(() => {
+    const index = buildSearchIndex();
+    const rawQuery = input.value.trim();
+    const query = normalizeSearchText(rawQuery);
+    clearHighlights(document);
     resultsBox.innerHTML = "";
 
     if (!query) {
@@ -1598,17 +1757,28 @@ function bindGlobalSearch() {
       item.addEventListener("click", () => {
         resultsBox.style.display = "none";
         input.value = "";
-        navigateTo(row.chapterId, row.sectionId || null, query);
+        navigateTo(row.chapterId, row.sectionId || null, rawQuery);
       });
       resultsBox.appendChild(item);
     });
-  });
+  }, SEARCH_DEBOUNCE_MS);
+
+  input.addEventListener("input", runSearch);
 
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".search-wrap")) {
       resultsBox.style.display = "none";
     }
   });
+}
+
+function setQuickRevisionMode(active) {
+  document.documentElement.classList.toggle("quick-revision-active", active);
+  localStorage.setItem(QUICK_REVISION_KEY, String(active));
+  const quickRevBtn = el("quick-revision-btn");
+  if (quickRevBtn) {
+    quickRevBtn.textContent = active ? "📚 Full Study" : "📖 Study Mode";
+  }
 }
 
 function bindChapterFilters() {
@@ -1643,15 +1813,18 @@ function bindChapterFilters() {
 }
 
 function initTheme() {
+  const themeToggle = el("theme-toggle");
+  if (!themeToggle) return;
+
   const saved = localStorage.getItem(THEME_KEY) || "light";
   document.documentElement.setAttribute("data-theme", saved);
-  el("theme-toggle").textContent = saved === "light" ? "Dark Mode" : "Light Mode";
+  themeToggle.textContent = saved === "light" ? "Dark Mode" : "Light Mode";
 
-  el("theme-toggle").addEventListener("click", () => {
+  themeToggle.addEventListener("click", () => {
     const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem(THEME_KEY, next);
-    el("theme-toggle").textContent = next === "light" ? "Dark Mode" : "Light Mode";
+    themeToggle.textContent = next === "light" ? "Dark Mode" : "Light Mode";
   });
 }
 
@@ -1659,37 +1832,40 @@ function bindTopButtons() {
   el("to-dashboard").addEventListener("click", () => navigateTo("dashboard"));
   el("to-exam-focus").addEventListener("click", () => navigateTo("exam-focus"));
 
-  // Hamburger menu toggle
   const hamburger = el("hamburger-menu");
+  const overlay = el("mobile-overlay");
+
   if (hamburger) {
     hamburger.addEventListener("click", () => {
-      const sidebar = document.querySelector(".sidebar");
-      sidebar.classList.toggle("open");
+      if (!isMobileViewport()) return;
+      toggleMobileSidebar();
     });
   }
 
-  // Quick Revision Mode toggle
+  if (overlay) {
+    overlay.addEventListener("click", closeMobileSidebar);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileSidebar();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (!isMobileViewport()) {
+      closeMobileSidebar();
+    }
+  });
+
   const quickRevBtn = el("quick-revision-btn");
   if (quickRevBtn) {
-    const isQuickMode = localStorage.getItem("quick-revision-mode") === "true";
-    if (isQuickMode) {
-      document.documentElement.classList.add("quick-revision-active");
-      quickRevBtn.textContent = "📚 Full Study";
-    }
+    const isQuickMode = localStorage.getItem(QUICK_REVISION_KEY) === "true";
+    setQuickRevisionMode(isQuickMode);
     quickRevBtn.addEventListener("click", () => {
-      const active = document.documentElement.classList.toggle("quick-revision-active");
-      localStorage.setItem("quick-revision-mode", active);
-      quickRevBtn.textContent = active ? "📚 Full Study" : "📖 Study Mode";
+      setQuickRevisionMode(!document.documentElement.classList.contains("quick-revision-active"));
     });
   }
-
-  // Close sidebar on link click
-  document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      const sidebar = document.querySelector(".sidebar");
-      sidebar.classList.remove("open");
-    });
-  });
 
   const backTop = el("back-to-top");
   backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
@@ -1714,7 +1890,7 @@ function loadFromHash() {
 }
 
 function init() {
-  const isQuickMode = localStorage.getItem("quick-revision-mode") === "true";
+  const isQuickMode = localStorage.getItem(QUICK_REVISION_KEY) === "true";
   if (isQuickMode) {
     document.documentElement.classList.add("quick-revision-active");
   }
@@ -1728,6 +1904,7 @@ function init() {
   initTheme();
   bindTopButtons();
   loadFromHash();
+  closeMobileSidebar();
 }
 
 document.addEventListener("DOMContentLoaded", init);

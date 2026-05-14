@@ -33,15 +33,23 @@
                         <input id="global-search" type="search" placeholder="Live search across headings, formulas, bullets, tables, exam Q/A..." aria-label="Global search" />
                         <div id="search-results" class="search-results" aria-live="polite"></div>
                     </div>
+
                     <div class="button-row">
-            <button id="hamburger-menu" class="hamburger-menu" type="button" aria-label="Toggle navigation menu">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-            <button id="to-dashboard" type="button">Dashboard</button>
-            <button id="to-exam-focus" type="button">Exam Focus</button>
-            <button id="quick-revision-btn" type="button">📖 Study Mode</button>
+                        <button id="hamburger-menu" class="hamburger-menu" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <button id="to-dashboard" type="button">Dashboard</button>
+                        <button id="to-exam-focus" type="button">Exam Focus</button>
+                        <button id="quick-revision-btn" type="button">📖 Study Mode</button>
+                        <button id="theme-toggle" type="button">Dark Mode</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-shell">
+                <section class="page active" id="dashboard">
                     <section class="hero">
                         <h2>Complete Revision Dashboard</h2>
                         <p>
@@ -62,10 +70,12 @@
 
                 <div id="dynamic-pages"></div>
                 <section class="page" id="exam-focus"></section>
+                <section class="page" id="formula-sheet"></section>
             </div>
         </main>
     </div>
 
+    <div id="mobile-overlay" class="mobile-overlay" hidden></div>
     <button id="back-to-top" class="back-top" type="button">Back to Top</button>
 
     <script src="script.js"></script>
