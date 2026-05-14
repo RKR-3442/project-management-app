@@ -179,14 +179,14 @@ const CHAPTERS = [
               <tbody>
                 <tr><td>Owner</td><td>Sponsor/owner</td><td>Project manager</td></tr>
                 <tr><td>Purpose</td><td>Authorize project + PM authority</td><td>Coordinate planning and guide execution/control</td></tr>
-                <tr><td>Inputs/Elements</td><td>SOW, business case, agreements, EEF, OPA</td><td>Overview, organization, management/technical processes, work/schedule/budget</td></tr>
+                <tr><td>Inputs/Elements</td><td>Statement of Work (SOW), business case, agreements, Enterprise Environmental Factors (EEF), Organizational Process Assets (OPA)</td><td>Overview, organization, management/technical processes, work/schedule/budget</td></tr>
                 <tr><td>Approval</td><td>Stakeholders sign</td><td>Approved baseline for management</td></tr>
               </tbody>
             </table>
           </div>
           <ul>
             <li>Charter can be updated, but edits should be documented transparently.</li>
-            <li><strong>Charter inputs</strong>: SOW, business case, agreements, EEF, and OPA.</li>
+            <li><strong>Charter inputs:</strong> Statement of Work (SOW), business case, agreements, Enterprise Environmental Factors (EEF), and Organizational Process Assets (OPA).</li>
           </ul>
         `
       },
@@ -196,7 +196,7 @@ const CHAPTERS = [
         badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
         html: `
           <ul>
-            <li>Execution uses meetings, PMIS, and expert judgment; most project time/cost is spent here.</li>
+            <li>Execution uses meetings, Project Management Information System (PMIS), and expert judgment; most project time/cost is spent here.</li>
             <li><strong>Application area</strong> affects execution because the actual product is produced during execution.</li>
             <li>The project manager should <strong>lead by example</strong> in discipline, communication, and change handling.</li>
             <li><strong>Baseline</strong> = approved project management plan + approved changes.</li>
@@ -209,9 +209,10 @@ const CHAPTERS = [
             </li>
             <li>Change control system documents who can change what and how.</li>
             <li>Change control board (CCB) reviews and approves/rejects change requests.</li>
-            <li>Configuration management maintains correct and complete product/document descriptions.</li>
-            <li>Closing requires finalizing activities, transitioning the final product/service/result, and updating OPA.</li>
+            <li class="less-emphasized">Configuration management: maintains version-controlled product descriptions so approved specifications stay accurate throughout the project.</li>
+            <li>Closing requires finalizing activities, transitioning the final product or service, and updating Organizational Process Assets (OPA).</li>
           </ul>
+          <div class="note"><strong>Exam tip:</strong> Integrated change control = impact analysis → CCB approval → baseline update. Unapproved changes lead to scope creep and cost overruns.</div>
         `
       }
     ],
@@ -245,7 +246,7 @@ const CHAPTERS = [
             <li>Scope is about <strong>amount of work</strong>, not project size.</li>
             <li>Clear scope drives quality and control; unclear scope drives rework and conflict.</li>
             <li>Project manager must prevent extra non-approved work (<strong>gold plating</strong>).</li>
-            <li>WBS is central to planning and decomposition into manageable components.</li>
+            <li>Work Breakdown Structure (WBS) is central to planning and scope decomposition into manageable components.</li>
           </ul>
         `
       },
@@ -450,8 +451,8 @@ const CHAPTERS = [
           <ul>
             <li>Gantt chart displays tasks and dates; symbols include milestones (black diamond), summary bars, dependencies (arrows).</li>
             <li>Milestones should follow <strong>SMART</strong>: specific, measurable, assignable, realistic, time-framed.</li>
-            <li><strong>CPM</strong> highlights critical activities and float using network logic.</li>
-            <li><strong>PERT</strong> uses optimistic, most likely, and pessimistic durations, making it more realistic under uncertainty.</li>
+            <li><strong>Critical Path Method (CPM)</strong> highlights critical activities and float using network logic.</li>
+            <li><strong>Program Evaluation and Review Technique (PERT)</strong> uses three duration estimates (optimistic, most likely, pessimistic) for realistic planning under uncertainty.</li>
             <li>Forward pass computes early start/finish; backward pass computes late start/finish.</li>
             <li>Float/slack: free float and total float represent allowable delay without target damage.</li>
           </ul>
@@ -468,8 +469,8 @@ const CHAPTERS = [
             <li>ES of C = 10 because the longest predecessor path ends at day 10.</li>
             <li>EF of C = 17 because EF = ES + duration = 10 + 7.</li>
             <li>A has 5 days float, while B and C have zero float.</li>
-            <li><strong>Murphy's Law:</strong> if something can go wrong, it may go wrong.</li>
-            <li><strong>Parkinson's Law:</strong> work expands to fill the time available.</li>
+            <li class="less-emphasized"><strong>Murphy's Law:</strong> if something can go wrong, it may go wrong — plan realistic contingency time.</li>
+            <li class="less-emphasized"><strong>Parkinson's Law:</strong> work expands to fill available time — use focused deadlines and active progress monitoring.</li>
             <li>Software cannot know dependencies unless the PM enters correct relationships.</li>
           </ul>
           <div class="diagram-card">
@@ -715,7 +716,7 @@ const CHAPTERS = [
             </table>
           </div>
           <ul>
-            <li><strong>EVM Relationship:</strong> All EVM calculations (CV, SV, CPI, SPI, EAC, TCPI) are anchored to BAC as the reference baseline.</li>
+            <li><strong>Earned Value Management (EVM) Relationship:</strong> BAC is the fixed baseline anchor for all EVM performance calculations. Key metrics: Cost Variance (CV), Schedule Variance (SV), Cost Performance Index (CPI), Schedule Performance Index (SPI), Estimate at Completion (EAC), and To-Complete Performance Index (TCPI). All formulas are covered in the EVM Formulas section below.</li>
             <li><strong>Example:</strong> If BAC = AED 500K and current CPI = 0.85, then EAC = 500K / 0.85 = AED 588K. Project is forecasted to cost AED 88K more than BAC.</li>
             <li><strong>PM responsibility:</strong> Protect BAC as a control reference. Significant variance signals need for corrective action or change request.</li>
           </ul>
@@ -756,9 +757,9 @@ const CHAPTERS = [
         badges: ["HIGH PRIORITY", "DR EMPHASIZED", "FORMULA"],
         html: `
           <ul>
-            <li><strong>PV</strong>: planned value (scheduled work value).</li>
-            <li><strong>EV</strong>: earned value (completed work value).</li>
-            <li><strong>AC</strong>: actual cost (spent value).</li>
+            <li><strong>Planned Value (PV)</strong>: budgeted cost of work scheduled (what we planned to spend by now).</li>
+            <li><strong>Earned Value (EV)</strong>: budgeted cost of work actually completed (what the finished work is worth).</li>
+            <li><strong>Actual Cost (AC)</strong>: real money spent to date (what we actually paid).</li>
             <li>If EV &lt; AC -> over budget.</li>
             <li>If EV &gt; AC -> under budget.</li>
           </ul>
