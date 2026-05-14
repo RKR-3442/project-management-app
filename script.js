@@ -984,8 +984,26 @@ function buildPages() {
   `;
 }
 
+function getAccordionContent(item) {
+  return item.querySelector(":scope > .accordion-content") || item.querySelector(".accordion-content");
+}
+
+function syncAncestorAccordionHeights(item) {
+  let ancestor = item.parentElement ? item.parentElement.closest(".accordion-item") : null;
+
+  while (ancestor) {
+    if (ancestor.classList.contains("open")) {
+      const ancestorContent = getAccordionContent(ancestor);
+      if (ancestorContent && ancestorContent.style.maxHeight !== "none") {
+        ancestorContent.style.maxHeight = `${ancestorContent.scrollHeight}px`;
+      }
+    }
+    ancestor = ancestor.parentElement ? ancestor.parentElement.closest(".accordion-item") : null;
+  }
+}
+
 function toggleAccordion(item, forceOpen = null) {
-  const content = item.querySelector(".accordion-content");
+  const content = getAccordionContent(item);
   const button = item.querySelector(".accordion-toggle");
   const icon = button.querySelector("span");
   const open = forceOpen === null ? !item.classList.contains("open") : forceOpen;
@@ -994,12 +1012,46 @@ function toggleAccordion(item, forceOpen = null) {
     item.classList.add("open");
     button.setAttribute("aria-expanded", "true");
     icon.textContent = "-";
-    content.style.maxHeight = `${content.scrollHeight}px`;
+    content.style.overflow = "hidden";
+
+    if (content.style.maxHeight === "none") {
+      content.style.maxHeight = "0px";
+    }
+
+    requestAnimationFrame(() => {
+      content.style.maxHeight = `${content.scrollHeight}px`;
+      syncAncestorAccordionHeights(item);
+    });
+
+    const onOpenTransitionEnd = () => {
+      if (item.classList.contains("open")) {
+        content.style.maxHeight = "none";
+        content.style.overflow = "visible";
+        syncAncestorAccordionHeights(item);
+      }
+    };
+
+    content.addEventListener("transitionend", onOpenTransitionEnd, { once: true });
   } else {
     item.classList.remove("open");
     button.setAttribute("aria-expanded", "false");
     icon.textContent = "+";
-    content.style.maxHeight = "0px";
+    content.style.overflow = "hidden";
+
+    if (content.style.maxHeight === "none") {
+      content.style.maxHeight = `${content.scrollHeight}px`;
+    }
+
+    requestAnimationFrame(() => {
+      content.style.maxHeight = "0px";
+      syncAncestorAccordionHeights(item);
+    });
+
+    const onCloseTransitionEnd = () => {
+      syncAncestorAccordionHeights(item);
+    };
+
+    content.addEventListener("transitionend", onCloseTransitionEnd, { once: true });
   }
 }
 
