@@ -31,6 +31,7 @@ const CHAPTERS = [
               </tbody>
             </table>
           </div>
+            <a href="#formula-sheet" class="nav-link" data-nav="formula-sheet">📋 Formula Sheet</a>
           <div class="note">Dr emphasized: all five groups matter, and weak process discipline causes budget overruns and deadline failures (e.g., IRS-style cases).</div>
         `
       },
@@ -958,7 +959,7 @@ function buildPages() {
   focus.innerHTML = `
     <section class="exam-focus-box">
       <h2>Exam Focus: Highest Probability Topics</h2>
-      <p>Use this page for final revision of likely exam points, formulas, and high-emphasis themes.</p>
+      <p>Use this page for final revision of likely exam points, formulas, and high-emphasis themes. <a href="#formula-sheet" onclick="navigateTo('formula-sheet'); return false;">→ See Formula Sheet</a></p>
       <h3>HIGH EMPHASIS (Dr emphasized)</h3>
       <ul>${HIGH_EMPHASIS.map((item) => `<li><strong>${item}</strong></li>`).join("")}</ul>
       <h3>LESS EMPHASIZED</h3>
@@ -980,6 +981,104 @@ function buildPages() {
       </div>
       <p><strong>Exam advice:</strong> answer with definition -> explanation -> structured points -> short practical example -> why it matters -> conclusion.</p>
       ${paginationMarkup("chapter14")}
+
+      // Formula Sheet page
+      const formulaSheet = document.createElement("section");
+      formulaSheet.className = "page";
+      formulaSheet.id = "formula-sheet";
+      formulaSheet.innerHTML = `
+        <section class="exam-focus-box">
+          <h2>Formula Sheet & Quick Reference</h2>
+          <p>All key formulas for project management with variables, interpretations, and quick examples. <strong>Print-friendly.</strong></p>
+      
+          <h3 style="margin-top: 20px;">Earned Value Management (EVM)</h3>
+      
+          <div class="formula-card">
+            <h3>Cost Variance (CV)</h3>
+            <div class="formula-display">CV = EV - AC</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> If CV > 0, under budget. If CV < 0, over budget.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>Schedule Variance (SV)</h3>
+            <div class="formula-display">SV = EV - PV</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> If SV > 0, ahead of schedule. If SV < 0, behind schedule.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>Cost Performance Index (CPI)</h3>
+            <div class="formula-display">CPI = EV / AC</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> CPI > 1 = efficient. CPI < 1 = inefficient. CPI = 1 = perfect efficiency.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>Schedule Performance Index (SPI)</h3>
+            <div class="formula-display">SPI = EV / PV</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> SPI > 1 = ahead. SPI < 1 = behind. SPI = 1 = on schedule.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>Estimate at Completion (EAC)</h3>
+            <div class="formula-display">EAC = BAC / CPI</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>CPI = Cost Performance Index</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> Forecasts total project cost based on current performance. If EAC > BAC, project will overrun.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>Estimate to Complete (ETC)</h3>
+            <div class="formula-display">ETC = EAC - AC</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>EAC = Estimate at Completion</li><li>AC = Actual Cost</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> Remaining budget needed to complete project.</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>To-Complete Performance Index (TCPI)</h3>
+            <div class="formula-display">TCPI = (BAC - EV) / (BAC - AC)</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
+            <div class="formula-interpretation"><strong>Interpretation:</strong> Required cost efficiency to meet target budget. TCPI > 1 = must improve. TCPI < 1 = can relax.</div>
+          </div>
+
+          <h3 style="margin-top: 20px;">Other Key Formulas</h3>
+
+          <div class="formula-card">
+            <h3>Return on Investment (ROI)</h3>
+            <div class="formula-display">ROI = (Benefits - Costs) / Costs × 100%</div>
+            <div class="formula-vars"><strong>Example:</strong> If project costs AED 100K and returns AED 150K, ROI = (150-100)/100 = 50%</div>
+          </div>
+
+          <div class="formula-card">
+            <h3>PERT Expected Duration</h3>
+            <div class="formula-display">Expected Duration = (O + 4M + P) / 6</div>
+            <div class="formula-vars"><strong>Variables:</strong><ul><li>O = Optimistic estimate</li><li>M = Most likely estimate</li><li>P = Pessimistic estimate</li></ul></div>
+            <div class="formula-interpretation"><strong>Example:</strong> Task estimates: Optimistic 2 days, Most likely 5 days, Pessimistic 8 days. Expected = (2 + 20 + 8) / 6 = 5 days</div>
+          </div>
+
+          <h3 style="margin-top: 20px; margin-bottom: 20px;">Quick Decision Rules</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Indicator</th><th>Meaning</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td>CV < 0</td><td>Over budget</td><td>Reduce scope, find cost savings, or request budget increase</td></tr>
+                <tr><td>SV < 0</td><td>Behind schedule</td><td>Accelerate tasks, add resources, or reduce scope</td></tr>
+                <tr><td>CPI < 1</td><td>Inefficient spending</td><td>Review cost controls, investigate waste</td></tr>
+                <tr><td>SPI < 1</td><td>Inefficient schedule progress</td><td>Evaluate resource constraints, dependencies</td></tr>
+                <tr><td>EAC > BAC</td><td>Project will overrun budget</td><td>Implement corrective actions or request change</td></tr>
+                <tr><td>TCPI > 1</td><td>Must improve efficiency</td><td>Prioritize high-impact cost reductions</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <nav class="pagination" aria-label="Formula sheet navigation">
+            <button type="button" data-nav="chapter14">Back to Chapter 14</button>
+            <button type="button" data-nav="dashboard">Dashboard</button>
+          </nav>
+        </section>
+      `;
+      pagesHost.appendChild(formulaSheet);
     </section>
   `;
 }
@@ -1313,6 +1412,38 @@ function bindTopButtons() {
   el("to-dashboard").addEventListener("click", () => navigateTo("dashboard"));
   el("to-exam-focus").addEventListener("click", () => navigateTo("exam-focus"));
 
+  // Hamburger menu toggle
+  const hamburger = el("hamburger-menu");
+  if (hamburger) {
+    hamburger.addEventListener("click", () => {
+      const sidebar = document.querySelector(".sidebar");
+      sidebar.classList.toggle("open");
+    });
+  }
+
+  // Quick Revision Mode toggle
+  const quickRevBtn = el("quick-revision-btn");
+  if (quickRevBtn) {
+    const isQuickMode = localStorage.getItem("quick-revision-mode") === "true";
+    if (isQuickMode) {
+      document.documentElement.classList.add("quick-revision-active");
+      quickRevBtn.textContent = "📚 Full Study";
+    }
+    quickRevBtn.addEventListener("click", () => {
+      const active = document.documentElement.classList.toggle("quick-revision-active");
+      localStorage.setItem("quick-revision-mode", active);
+      quickRevBtn.textContent = active ? "📚 Full Study" : "📖 Study Mode";
+    });
+  }
+
+  // Close sidebar on link click
+  document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const sidebar = document.querySelector(".sidebar");
+      sidebar.classList.remove("open");
+    });
+  });
+
   const backTop = el("back-to-top");
   backTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   window.addEventListener("scroll", () => {
@@ -1336,6 +1467,10 @@ function loadFromHash() {
 }
 
 function init() {
+  const isQuickMode = localStorage.getItem("quick-revision-mode") === "true";
+  if (isQuickMode) {
+    document.documentElement.classList.add("quick-revision-active");
+  }
   buildSidebar();
   buildDashboard();
   buildPages();
