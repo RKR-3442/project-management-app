@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Project Management Revision Study Guide" />
+    <title>Project Management Revision Study Guide</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="site-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>Project Management Revision</h1>
+                <p>Exam-focused interactive study website</p>
+            </div>
+
+            <section class="progress-box">
+                <h2>Study Progress</h2>
+                <div class="progress-track">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <div class="progress-text" id="progress-text">0/0 chapters studied</div>
+            </section>
+
+            <nav class="study-nav" id="study-nav" aria-label="Chapter navigation"></nav>
+        </aside>
+
+        <main class="main-area">
+            <header class="topbar">
+                <div class="controls-grid">
+                    <div class="search-wrap">
+                        <input id="global-search" type="search" placeholder="Live search across headings, formulas, bullets, tables, exam Q/A..." aria-label="Global search" />
+                        <div id="search-results" class="search-results" aria-live="polite"></div>
+                    </div>
+                    <div class="button-row">
+                        <button id="to-dashboard" type="button">Dashboard</button>
+                        <button id="to-exam-focus" type="button">Exam Focus</button>
+                        <button id="theme-toggle" type="button">Dark Mode</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-shell">
+                <section class="page active" id="dashboard">
+                    <section class="hero">
+                        <h2>Complete Revision Dashboard</h2>
+                        <p>
+                            Structured by week/chapter with collapsible concept blocks, comparison tables,
+                            formulas, Dr emphasized labels, live search, theme memory, and progress tracking.
+                        </p>
+                        <div class="badge-row" style="margin-top:10px;">
+                            <span class="badge high-priority">HIGH PRIORITY</span>
+                            <span class="badge dr-emphasized">DR EMPHASIZED</span>
+                            <span class="badge formula">FORMULA</span>
+                            <span class="badge exam-question">EXAM QUESTION</span>
+                            <span class="badge less-emphasized">LESS EMPHASIZED</span>
+                        </div>
+                    </section>
+
+                    <section class="chapter-grid" id="chapter-grid" aria-label="Chapter cards"></section>
+                </section>
+
+                <div id="dynamic-pages"></div>
+                <section class="page" id="exam-focus"></section>
+            </div>
+        </main>
+    </div>
+
+    <button id="back-to-top" class="back-top" type="button">Back to Top</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
