@@ -18,35 +18,12 @@ const CHAPTERS = [
             <li><strong>Process</strong> means actions you perform to achieve a specific outcome.</li>
             <li><strong>Project management</strong> is a set of connected process groups used to manage the project from start to end.</li>
             <li>The purpose is to understand the <strong>overall picture</strong> and manage projects systematically, not only cost/resources.</li>
-          <div class="diagram-card">
-            <h4>Fishbone Diagram Example</h4>
-            <svg viewBox="0 0 760 250" class="svg-diagram" role="img" aria-label="Fishbone diagram showing causes of late project delivery">
-              <line x1="120" y1="125" x2="630" y2="125" stroke="currentColor" stroke-width="4"></line>
-              <polygon points="630,95 720,125 630,155" fill="currentColor"></polygon>
-              <text x="695" y="120" text-anchor="middle" class="diagram-label">Late</text>
-              <text x="695" y="145" text-anchor="middle" class="diagram-label">Delivery</text>
-              <line x1="240" y1="125" x2="180" y2="60" stroke="currentColor" stroke-width="3"></line>
-              <line x1="240" y1="125" x2="180" y2="190" stroke="currentColor" stroke-width="3"></line>
-              <line x1="360" y1="125" x2="300" y2="60" stroke="currentColor" stroke-width="3"></line>
-              <line x1="360" y1="125" x2="300" y2="190" stroke="currentColor" stroke-width="3"></line>
-              <line x1="500" y1="125" x2="440" y2="60" stroke="currentColor" stroke-width="3"></line>
-              <line x1="500" y1="125" x2="440" y2="190" stroke="currentColor" stroke-width="3"></line>
-              <text x="150" y="52" class="diagram-sub">Methods</text>
-              <text x="128" y="208" class="diagram-sub">People</text>
-              <text x="275" y="52" class="diagram-sub">Machines/Tools</text>
-              <text x="275" y="208" class="diagram-sub">Materials/Inputs</text>
-              <text x="430" y="52" class="diagram-sub">Measurement</text>
-              <text x="430" y="208" class="diagram-sub">Environment</text>
-            </svg>
-          </div>
             <li>All projects should pass through the same five process groups even if the project is small.</li>
             <li>Time spent is <strong>not equal</strong> across groups; execution usually consumes the largest effort.</li>
             <li><strong>Execution</strong> usually takes the most time and effort because the actual deliverable is being produced there.</li>
             <li><strong>All five groups matter</strong>; weakness in one group creates risk in the others.</li>
           </ul>
           <div class="table-wrap">
-                <li><strong>Precision</strong> means repeated results are close to each other; <strong>accuracy</strong> means results are close to the correct target.</li>
-                <li><strong>Grade</strong> is not the same as quality: a low-grade deliverable can still be high quality if it fully meets its intended requirements.</li>
             <table>
               <thead><tr><th>Process Group</th><th>Main Meaning</th><th>Example Output</th></tr></thead>
               <tbody>
@@ -87,19 +64,27 @@ const CHAPTERS = [
       },
       {
         id: "w3-knowledge-methods",
-        title: "Knowledge Areas, Methodologies, and Standards",
+        title: "Knowledge Areas & Methodologies",
         badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
         html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Knowledge Area</th><th>Practical Purpose</th><th>Peak Activity</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Integration</strong></td><td>Coordinate all parts into one system</td><td>All phases</td></tr>
+                <tr><td><strong>Scope</strong></td><td>Define work boundaries clearly</td><td>Planning</td></tr>
+                <tr><td><strong>Schedule</strong></td><td>Establish realistic timeline</td><td>Planning</td></tr>
+                <tr><td><strong>Cost</strong></td><td>Budget and track spending</td><td>Planning + Execution</td></tr>
+                <tr><td><strong>Quality</strong></td><td>Meet or exceed requirements</td><td>All phases</td></tr>
+                <tr><td><strong>Risk</strong></td><td>Identify and mitigate threats</td><td>Planning + Execution</td></tr>
+                <tr><td><strong>Stakeholder</strong></td><td>Engage and satisfy key actors</td><td>All phases</td></tr>
+              </tbody>
+            </table>
+          </div>
           <ul>
-            <li><strong>Integration</strong>: putting all parts together.</li>
-            <li><strong>Scope and time</strong>: strongly centered in planning.</li>
-            <li><strong>Cost</strong>: planning + implementation.</li>
-            <li><strong>Quality</strong>: throughout all process groups.</li>
-            <li><strong>Communication</strong>: planning, execution, controlling.</li>
-            <li><strong>Risk</strong>: planning and execution context.</li>
             <li>A <strong>methodology</strong> explains how to do work; a <strong>standard</strong> explains what should be done.</li>
             <li>Methodology selection must fit the project: Agile, Six Sigma, PRINCE2, RUP, etc.</li>
-            <li>Agile benefits reported: faster delivery, better change handling, improved quality/productivity.</li>
+            <li>Agile benefits: faster delivery, better change handling, improved quality/productivity.</li>
             <li>Agile challenges: culture shift, resistance, weak coaching, shortage of qualified people.</li>
           </ul>
         `
@@ -118,23 +103,6 @@ const CHAPTERS = [
             <li>Monitoring includes milestone reports with planned date, status, owner, issues/comments.</li>
             <li>Closing outputs: final files, lessons learned, organizational process assets, final presentation to sponsor.</li>
           </ul>
-        `
-      },
-      {
-        id: "w3-burndown-gantt",
-        title: "Burndown Chart vs Gantt Chart",
-        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
-        html: `
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Aspect</th><th>Burndown</th><th>Gantt</th></tr></thead>
-              <tbody>
-                <tr><td>Primary View</td><td>Remaining work over time</td><td>Tasks on timeline with dates</td></tr>
-                <tr><td>Progress Visibility</td><td>Very direct progress signal</td><td>Good planning/dependency view</td></tr>
-                <tr><td>Common Use</td><td>Agile sprint/project tracking</td><td>Traditional schedule planning/control</td></tr>
-              </tbody>
-            </table>
-          </div>
         `
       }
     ],
@@ -319,6 +287,33 @@ const CHAPTERS = [
         `
       },
       {
+        id: "w56-verify-vs-control",
+        title: "Verify Scope vs Control Scope: A Critical Process Distinction",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION", "DR EMPHASIZED"],
+        html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Dimension</th><th>Verify Scope (Validate)</th><th>Control Scope</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Purpose</strong></td><td>Confirm work deliverables meet requirements and are acceptable</td><td>Ensure project scope doesn't expand without approval</td></tr>
+                <tr><td><strong>Timing</strong></td><td>During and after production of deliverables</td><td>Throughout entire project</td></tr>
+                <tr><td><strong>Question Answered</strong></td><td>Is the deliverable correct?</td><td>Is the scope growing uncontrolled?</td></tr>
+                <tr><td><strong>Method</strong></td><td>Inspection, testing, stakeholder review, acceptance testing, sign-off</td><td>Variance analysis, traceability review, change management, scope creep detection</td></tr>
+                <tr><td><strong>Output</strong></td><td>Accepted deliverables or rework requests; quality verification</td><td>Approved/rejected scope changes; baseline updates; trend reports</td></tr>
+                <tr><td><strong>Stakeholders</strong></td><td>Primarily customer/sponsor who accepts deliverables</td><td>PM, sponsor, change control board (CCB)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Verify Scope = Acceptance.</strong> Stakeholder formally reviews work and says "yes, this meets our requirements" or "no, rework needed."</li>
+            <li><strong>Control Scope = Protection.</strong> PM ensures that no unapproved work is added, and all changes go through formal CCB approval before baseline update.</li>
+            <li><strong>Sequence:</strong> First you control scope (manage changes), then you verify scope (get acceptance).</li>
+            <li><strong>Common mistake:</strong> Confusing the two. Scope control is about preventing unauthorized expansion; scope verification is about confirming what was built is what was asked for.</li>
+          </ul>
+          <div class="note"><strong>Example:</strong> Stakeholder requests "add a new report." That's scope creep (control scope issue). PM conducts impact analysis, submits to CCB, gets approval, updates baseline. Later, the team builds the report. PM then verifies it matches the requirement (verify scope). Without control, the report might never be captured in the plan.</div>
+        `
+      },
+      {
         id: "w56-definition-elements",
         title: "Scope Definition Elements and Change Example",
         badges: ["HIGH PRIORITY", "EXAM QUESTION"],
@@ -343,6 +338,35 @@ const CHAPTERS = [
               </tbody>
             </table>
           </div>
+        `
+      },
+      {
+        id: "w56-scope-baseline",
+        title: "Scope Baseline: The Foundation of Scope Control",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Scope Baseline</strong> = approved Scope Statement + WBS + WBS Dictionary (detailed descriptions of each work package).</li>
+            <li>The scope baseline is the REFERENCE POINT for all future scope change management.</li>
+            <li>Once approved, any change to scope baseline must go through formal Change Control Board (CCB) process.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Component</th><th>Contains</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Scope Statement (approved)</strong></td><td>Product description, deliverables, acceptance criteria, exclusions, constraints, assumptions</td><td>Sets boundaries: what IS and IS NOT included</td></tr>
+                <tr><td><strong>Work Breakdown Structure (WBS)</strong></td><td>Hierarchical decomposition of scope into work packages</td><td>Ensures all scope is captured; allows resource and cost assignment</td></tr>
+                <tr><td><strong>WBS Dictionary</strong></td><td>Detailed description of each work package: tasks, schedules, resource needs, quality standards</td><td>Operational guide for execution teams; clarity for control</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Why baseline matters:</strong> Without it, scope disputes arise, creep goes undetected, and cost/schedule impacts aren't properly managed.</li>
+            <li><strong>Change management process:</strong> If stakeholder requests scope change, PM analyzes impact on baseline, seeks CCB approval, then updates baseline and plans.</li>
+            <li><strong>Scope control:</strong> Monitor actual work against baseline. Variance analysis compares work performed vs work planned at baseline.</li>
+            <li><strong>Baseline updates:</strong> Only happen through formal change control; prevents casual scope expansion.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Scope Baseline = Scope Statement + WBS + WBS Dictionary. It's the control reference for the entire project.</div>
         `
       }
     ],
@@ -472,6 +496,118 @@ const CHAPTERS = [
         `
       },
       {
+        id: "w7-float-formulas",
+        title: "Float Formulas and Critical Path Calculation",
+        badges: ["HIGH PRIORITY", "FORMULA", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Float (or Slack)</strong> = amount of time an activity can be delayed without delaying the overall project completion.</li>
+            <li>Float is calculated from forward pass (ES, EF) and backward pass (LS, LF) values.</li>
+          </ul>
+          <div class="formula-box">Total Float (TF) = Late Start (LS) - Early Start (ES)</div>
+          <div class="formula-box">OR: Total Float (TF) = Late Finish (LF) - Early Finish (EF)</div>
+          <ul>
+            <li><strong>Interpretation:</strong></li>
+            <li>If TF > 0 = activity has schedule margin; can slip TF days without impacting project deadline.</li>
+            <li>If TF = 0 = activity is on critical path; zero margin; any delay impacts project.</li>
+            <li>If TF < 0 = schedule is impossible with current logic (should not occur in valid schedule).</li>
+            <li><strong>Free Float</strong> = float within a single path; amount activity can slip without impacting successor.</li>
+            <li><strong>Total Float</strong> = float across entire project; amount activity can slip without impacting project finish.</li>
+            <li>Project managers focus on activities with zero or near-zero float; these are most critical.</li>
+          </ul>
+          <div class="note"><strong>Example:</strong> Activity A has ES=5, LS=8, so TF=3 days. Activity A can start anytime between day 5 and day 8 without affecting the project end date. But if it starts on day 9, the project will be late.</div>
+        `
+      },
+      {
+        id: "w7-critical-path-definition",
+        title: "Critical Path Definition and Implications",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Critical Path</strong> = longest sequence of dependent activities from project start to finish.</li>
+            <li>The critical path determines the minimum possible project duration (earliest finish date).</li>
+            <li><strong>Key characteristic:</strong> All activities on the critical path have ZERO FLOAT.</li>
+            <li><strong>Why it matters:</strong> Any delay in a critical path activity automatically delays the entire project. Non-critical activities have buffer (float) so minor delays don't impact the project end date.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Attribute</th><th>Critical Path Activities</th><th>Non-Critical (Float) Activities</th></tr></thead>
+              <tbody>
+                <tr><td>Float value</td><td>Zero (0)</td><td>Greater than zero (> 0)</td></tr>
+                <tr><td>Schedule margin</td><td>None; fully committed</td><td>Yes; can slip within float limits</td></tr>
+                <tr><td>Delay impact</td><td>Any delay delays project finish</td><td>Small delays absorbed by float</td></tr>
+                <tr><td>PM attention</td><td>HIGH; monitor closely, protect from risks</td><td>MEDIUM; monitor but less urgent</td></tr>
+                <tr><td>Resource allocation</td><td>Critical; often best resources assigned</td><td>Flexible; can be reassigned if needed</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Project management implication:</strong> PM should focus monitoring and control effort on the critical path first. Protecting critical-path activities from delays protects the project deadline.</li>
+            <li><strong>Schedule optimization:</strong> To accelerate project, target activities on the critical path for crashing or fast-tracking. Improving non-critical activities doesn't help unless it makes them critical.</li>
+            <li><strong>Risk management:</strong> High-risk activities on the critical path require extra mitigation planning; delays are felt immediately.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Critical path = longest path = zero float = determines project duration = focus of PM control.</div>
+        `
+      },
+      {
+        id: "w7-backward-pass",
+        title: "Backward Pass Example and Late Start/Finish Calculation",
+        badges: ["HIGH PRIORITY", "FORMULA", "EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>Backward Pass</strong> = working backward from project finish date to calculate Late Start (LS) and Late Finish (LF) for each activity.</li>
+            <li>Backward pass determines the latest an activity can start/finish without delaying the project end date.</li>
+            <li>Combining forward pass (ES, EF) with backward pass (LS, LF) reveals float (schedule margin) for each activity.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Calculation Step</th><th>Formula</th><th>Direction</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Forward Pass</strong></td><td>EF = ES + Duration; Next Activity ES = Current EF</td><td>Left to right (project start → finish)</td></tr>
+                <tr><td><strong>Backward Pass</strong></td><td>LS = LF - Duration; Previous Activity LF = Current LS</td><td>Right to left (project finish → start)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Example using CPM mini network:</strong></li>
+            <li>Forward Pass: A (5 days) ES=0, EF=5. B (10 days) ES=0, EF=10. C (7 days) ES=10, EF=17. Project duration = 17 days.</li>
+            <li>Backward Pass: C must finish by day 17 (LF=17). C LS = 17 - 7 = 10. B must finish by day 10 (LF=10 to feed C). B LS = 10 - 10 = 0. A must finish by day 5 (LF=5 to feed C). A LS = 5 - 5 = 0.</li>
+            <li>Float: A TF = LS - ES = 5 - 0 = 5 (float available). B TF = 10 - 0 = 10 (also float). C TF = 10 - 10 = 0 (critical path, no float).</li>
+            <li><strong>Why backward pass matters:</strong> It shows the latest each activity can start without impacting the project. Activities with zero float are critical and must be protected.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Forward pass = when earliest can something happen (ES, EF). Backward pass = when latest can something happen (LS, LF). Float shows the difference.</div>
+        `
+      },
+      {
+        id: "w7-leads-lags",
+        title: "Activity Relationships: Leads, Lags, and Dependency Types",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Dependency</strong> = logical relationship between two activities that restricts sequencing.</li>
+            <li>Four types of dependencies: Finish-to-Start (FS), Start-to-Start (SS), Finish-to-Finish (FF), Start-to-Finish (SF).</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Relationship</th><th>Meaning</th><th>Lag/Lead</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Finish-to-Start (FS)</strong></td><td>Predecessor must finish before successor starts</td><td>Lag = delay before starting successor</td><td>Paint wall (finish) → let paint dry 1 day (lag) → hang pictures (start)</td></tr>
+                <tr><td><strong>Start-to-Start (SS)</strong></td><td>Predecessor must start before successor can start</td><td>Lead = start successor BEFORE predecessor finishes</td><td>Start building foundation → start framing 5 days later with lead overlap</td></tr>
+                <tr><td><strong>Finish-to-Finish (FF)</strong></td><td>Predecessor must finish before successor finishes</td><td>Lag = hold successor finish to allow predecessor to complete</td><td>Testing (predecessor) → packaging (successor) can't finish until testing done</td></tr>
+                <tr><td><strong>Start-to-Finish (SF)</strong></td><td>Predecessor must start before successor can finish (rare)</td><td>Lead/Lag timing</td><td>Uncommon; used in specialized scheduling</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Lead</strong> = overlap; start successor BEFORE predecessor finishes. Reduces project duration. Example: Start painting 2 days before drywall is completely done (if safe).</li>
+            <li><strong>Lag</strong> = wait time; delay before starting successor. Adds time. Example: Wait 3 days after concrete pour before framing (curing time required).</li>
+            <li><strong>Critical distinction:</strong> Leads compress schedule (fast-tracking), lags extend schedule (required waiting).</li>
+            <li><strong>PM use:</strong> Identify opportunities for leads to reduce project duration. Understand lags to plan realistic schedules.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Lead = fast-track potential (overlap); Lag = waiting/buffer time (extension). Don't confuse them.</div>
+        `
+      },
+      {
         id: "w7-shorten-control",
         title: "Crashing, Fast Tracking, Buffers, and Control",
         badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
@@ -484,6 +620,30 @@ const CHAPTERS = [
             <li>Theory of Constraints focuses on the main bottleneck and reducing harmful multitasking.</li>
             <li>Control schedule means tracking current state, detecting delays, and applying approved changes.</li>
             <li>Traditional schedule control focuses deadline completion; Agile emphasizes continuous delivery flexibility.</li>
+          </ul>
+        `
+      },
+      {
+        id: "w7-burndown-gantt",
+        title: "Burndown Chart vs Gantt Chart: Schedule View Comparison",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Aspect</th><th>Burndown Chart</th><th>Gantt Chart</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Primary View</strong></td><td>Remaining work over time</td><td>Tasks on timeline with dates</td></tr>
+                <tr><td><strong>Progress Visibility</strong></td><td>Very direct progress signal</td><td>Good planning/dependency view</td></tr>
+                <tr><td><strong>Common Use</strong></td><td>Agile sprint/project tracking</td><td>Traditional schedule planning/control</td></tr>
+                <tr><td><strong>Timeline Focus</strong></td><td>Short cycles (sprint-based)</td><td>Long projects or major phases</td></tr>
+                <tr><td><strong>Dependencies Shown</strong></td><td>Implicit in burn pattern</td><td>Explicit arrows between tasks</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>Burndown works best for teams delivering in short iterations.</li>
+            <li>Gantt works best for projects with clear sequential logic and fixed endpoints.</li>
+            <li>Many teams use both: Gantt for overall roadmap, burndown for sprint execution.</li>
           </ul>
         `
       }
@@ -531,6 +691,35 @@ const CHAPTERS = [
               </tbody>
             </table>
           </div>
+        `
+      },
+      {
+        id: "w8-bac-definition",
+        title: "Budget at Completion (BAC) and Baseline Concepts",
+        badges: ["FORMULA", "HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>BAC (Budget at Completion)</strong> = total approved project budget at the start (baseline).</li>
+            <li>BAC = sum of all cost estimates + contingency reserve, approved by sponsor and baseline authority.</li>
+            <li>BAC is a fixed reference point used in EVM calculations to measure cost performance.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Cost Concept</th><th>Definition</th><th>When Set</th><th>Flexibility</th></tr></thead>
+              <tbody>
+                <tr><td><strong>BAC</strong></td><td>Approved project budget baseline</td><td>During cost planning; locked in baseline</td><td>Fixed; changes only via formal scope/change approval</td></tr>
+                <tr><td><strong>EAC</strong></td><td>Forecasted total cost at completion based on current performance</td><td>During execution; recalculated regularly</td><td>Dynamic; updates as performance data arrives</td></tr>
+                <tr><td><strong>PV (Planned Value)</strong></td><td>Budgeted cost of work scheduled</td><td>During planning; reflects schedule</td><td>Fixed per baseline timeline</td></tr>
+                <tr><td><strong>AC (Actual Cost)</strong></td><td>Real money spent to date</td><td>Real-time as invoices arrive</td><td>Factual; no flexibility</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>EVM Relationship:</strong> All EVM calculations (CV, SV, CPI, SPI, EAC, TCPI) are anchored to BAC as the reference baseline.</li>
+            <li><strong>Example:</strong> If BAC = AED 500K and current CPI = 0.85, then EAC = 500K / 0.85 = AED 588K. Project is forecasted to cost AED 88K more than BAC.</li>
+            <li><strong>PM responsibility:</strong> Protect BAC as a control reference. Significant variance signals need for corrective action or change request.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> BAC = baseline; EAC = forecast. Don't confuse them. If asked "what's the total budget?", answer BAC (approved baseline). If asked "how much will it actually cost?", calculate EAC.</div>
         `
       },
       {
@@ -831,6 +1020,65 @@ const CHAPTERS = [
           </ul>
           <div class="note"><strong>Exam tip:</strong> If question asks about process audit or methodology review, it's QA. If about testing or inspection of deliverables, it's QC.</div>
         `
+      },
+      {
+        id: "w9-precision-accuracy",
+        title: "Precision vs Accuracy: A Critical Quality Distinction",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Precision</strong> = repeatability or consistency. If you measure the same thing multiple times with precise equipment, you get very similar results (even if they're all wrong).</li>
+            <li><strong>Accuracy</strong> = closeness to the true or target value. A measurement is accurate if it hits the correct target (even if individual measurements vary slightly).</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Concept</th><th>Definition</th><th>Example</th><th>Project Impact</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Precision</strong></td><td>Results cluster tightly together (low variation)</td><td>Three measurements: 10.1, 10.2, 10.0 inches</td><td>Consistent process; can calibrate and improve</td></tr>
+                <tr><td><strong>Accuracy</strong></td><td>Results match the true target value</td><td>Measurements average 10.0 inches, true length is 10.0 inches</td><td>Meets requirement; stakeholder satisfied</td></tr>
+                <tr><td><strong>High Precision + Low Accuracy</strong></td><td>Consistent but wrong; all wrong by same amount</td><td>Three measurements: 8.1, 8.0, 8.2 inches (true = 10.0)</td><td>Process is broken; needs major recalibration</td></tr>
+                <tr><td><strong>Low Precision + High Accuracy</strong></td><td>Scattered around target; on average correct</td><td>Three measurements: 9.5, 10.3, 10.2 inches (true = 10.0 avg)</td><td>Unreliable but lucky; need to reduce variation</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Project lesson:</strong> A well-defined process (high precision) that's aimed at the right target (accuracy) produces quality.</li>
+            <li>If you have a precise process but it's misaligned, all outputs will be consistently wrong.</li>
+            <li>If you have an accurate average but high variation, results are unpredictable and risky.</li>
+            <li>Best practice: design for both precision (low variation, repeatability) and accuracy (correctness to requirement).</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Precision = "tight cluster", Accuracy = "on target". Don't confuse them; they're independent concepts.</div>
+        `
+      },
+      {
+        id: "w9-grade-quality",
+        title: "Grade vs Quality: Not the Same Thing",
+        badges: ["HIGH PRIORITY", "EXAM QUESTION", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Grade</strong> = category or level of a product (e.g., first-class, economy, budget).</li>
+            <li><strong>Quality</strong> = degree to which a product meets its specified requirements for its grade.</li>
+            <li><strong>Critical insight:</strong> A low-grade product can be HIGH QUALITY if it fully meets its intended specifications. Conversely, a high-grade product can be LOW QUALITY if it fails to meet its specifications.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Concept</th><th>Definition</th><th>Example</th><th>Project Implication</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Grade</strong></td><td>Feature set, luxury level, materials tier</td><td>Budget hotel (low grade) vs 5-star hotel (high grade)</td><td>Sponsor approves grade during planning; scope includes grade</td></tr>
+                <tr><td><strong>Quality</strong></td><td>Conformance to specified requirements for the grade</td><td>Budget hotel with clean rooms, working A/C, friendly staff = high quality for its grade</td><td>PM must deliver quality at the approved grade level</td></tr>
+                <tr><td><strong>Low Grade, High Quality</strong></td><td>Basic but well-executed deliverable</td><td>Economy airline ticket: basic service but on-time, safe, professional = quality</td><td>Scope approved as economy; must deliver economy quality</td></tr>
+                <tr><td><strong>High Grade, Low Quality</strong></td><td>Fancy features that don't work correctly</td><td>Luxury hotel with fancy lobby but broken elevators, poor service = quality failure</td><td>Failure to deliver; stakeholder dissatisfaction despite premium scope</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>For project managers:</strong> Quality control must verify that outputs meet the requirements of the APPROVED GRADE, not some other grade.</li>
+            <li>If requirements say "basic reporting" but you deliver "enterprise-grade fancy reports", that's not quality—that's scope creep and over-engineering.</li>
+            <li>Conversely, if requirements say "bank-grade security" but you deliver "basic encryption", that's quality failure even if it technically works.</li>
+            <li><strong>Lesson:</strong> Quality = fitness for purpose at the approved grade level. Approval of grade is a SCOPE issue; ensuring quality at that grade is a CONTROL issue.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Grade = level; Quality = conformance. Don't confuse them. A project can have perfect quality at a low grade level.</div>
+        `
       }
     ],
     exam: [
@@ -911,9 +1159,46 @@ const CHAPTERS = [
         `
       },
       {
+        id: "c12-emv",
+        title: "Expected Monetary Value (EMV) Analysis",
+        badges: ["FORMULA", "HIGH PRIORITY", "EXAM QUESTION"],
+        html: `
+          <ul>
+            <li><strong>EMV</strong> = quantitative risk assessment combining probability and impact into a single expected value.</li>
+            <li>Used to prioritize risks by their expected financial exposure and to justify response investments.</li>
+          </ul>
+          <div class="formula-box">EMV = Probability × Impact (in monetary terms)</div>
+          <ul>
+            <li><strong>For Threats (Negative Risks):</strong></li>
+            <li>Example: 30% probability of AED 100,000 cost overrun → EMV = 0.30 × 100,000 = AED 30,000 expected exposure.</li>
+            <li>Interpretation: Statistically, expect to lose AED 30,000 due to this risk over many projects.</li>
+            <li><strong>For Opportunities (Positive Risks):</strong></li>
+            <li>Example: 20% probability of AED 50,000 cost savings → EMV = 0.20 × 50,000 = AED 10,000 expected benefit.</li>
+            <li>Interpretation: Statistically, expect to gain AED 10,000 due to this opportunity over many projects.</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Risk</th><th>Probability</th><th>Impact</th><th>EMV</th><th>Response Priority</th></tr></thead>
+              <tbody>
+                <tr><td>Vendor delay</td><td>40%</td><td>AED 50K</td><td>AED 20K</td><td>High (respond)</td></tr>
+                <tr><td>Weather issue</td><td>10%</td><td>AED 200K</td><td>AED 20K</td><td>Medium (monitor)</td></tr>
+                <tr><td>Efficiency gain</td><td>25%</td><td>AED 60K</td><td>AED 15K</td><td>Medium (pursue)</td></tr>
+                <tr><td>Minor defect</td><td>80%</td><td>AED 2K</td><td>AED 1.6K</td><td>Low (accept)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Decision Rule:</strong> Rank risks by EMV. Allocate response resources to highest-EMV risks first.</li>
+            <li><strong>Investment justification:</strong> If a risk has EMV = AED 30,000, spending AED 5,000 on mitigation may be cost-effective.</li>
+            <li><strong>Limitation:</strong> EMV assumes many projects; for one unique project, high-probability low-impact and low-probability high-impact risks may both require attention regardless of EMV.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> EMV is a quantitative tool for prioritizing risks. Higher EMV = higher response priority. Use with Probability-Impact Matrix for complete analysis.</div>
+        `
+      },
+      {
         id: "c12-analysis-responses",
         title: "Qualitative/Quantitative Analysis and Responses",
-        badges: ["HIGH PRIORITY", "DR EMPHASIZED", "FORMULA"],
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
         html: `
           <ul>
             <li>Qualitative analysis: probability/impact matrix, top ten risk tracking, expert judgment.</li>
@@ -1030,6 +1315,38 @@ const CHAPTERS = [
         `
       },
       {
+        id: "c14-engagement-assessment",
+        title: "Stakeholder Engagement Assessment Matrix",
+        badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
+        html: `
+          <ul>
+            <li><strong>Stakeholder Engagement Assessment Matrix</strong> = tool to track current vs desired stakeholder engagement levels and plan actions to close gaps.</li>
+            <li>Typical engagement levels: Unaware, Resistant, Neutral, Supportive, Leading.</li>
+            <li>Matrix shows where each stakeholder IS now (current state) vs where they SHOULD BE (desired state).</li>
+          </ul>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Stakeholder Name</th><th>Current Engagement</th><th>Desired Engagement</th><th>Gap</th><th>Action Plan</th></tr></thead>
+              <tbody>
+                <tr><td>Project Sponsor</td><td>Supportive</td><td>Leading</td><td>+1 level</td><td>Regular executive briefings, escalation authority</td></tr>
+                <tr><td>Engineering Lead</td><td>Neutral</td><td>Supportive</td><td>+1 level</td><td>Include in design decisions, show early results</td></tr>
+                <tr><td>Finance Officer</td><td>Resistant</td><td>Neutral</td><td>+1 level</td><td>Cost-benefit presentation, budget transparency</td></tr>
+                <tr><td>End User Group</td><td>Unaware</td><td>Supportive</td><td>+2 levels</td><td>Product demos, user feedback sessions, training plan</td></tr>
+                <tr><td>IT Operations</td><td>Supportive</td><td>Supportive</td><td>None</td><td>Maintain engagement; regular updates</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>How to use:</strong> At project start, assess each stakeholder's CURRENT engagement. Compare against DESIRED state. Prioritize actions to move stakeholders toward desired level.</li>
+            <li><strong>Resistant stakeholders:</strong> Identify root cause of resistance (fear, misunderstanding, conflicting priorities). Address directly before escalating.</li>
+            <li><strong>Unaware stakeholders:</strong> Inform first; engagement often follows once they understand impact.</li>
+            <li><strong>Leading stakeholders:</strong> Leverage as project advocates and change agents.</li>
+            <li><strong>Monitor continuously:</strong> Engagement levels can shift during project. Re-assess quarterly and adjust actions.</li>
+          </ul>
+          <div class="note"><strong>Exam tip:</strong> Engagement assessment matrix connects current state (where stakeholders are) to desired state (where they need to be), with explicit actions to bridge the gap.</div>
+        `
+      },
+      {
         id: "c14-plan-control-tools",
         title: "Plan, Expectation Management, Issue Log, and Control",
         badges: ["DR EMPHASIZED", "EXAM QUESTION"],
@@ -1066,21 +1383,25 @@ const CHAPTERS = [
 
 const HIGH_EMPHASIS = [
   "Agile vs Traditional",
-  "AI in Project Management",
-  "Digital Transformation",
   "Scope Creep",
-  "WBS",
+  "WBS and decomposition",
+  "Critical Path and Float",
   "CPM vs PERT",
-  "Float/slack",
   "Crashing and Fast Tracking",
+  "Three-point estimate formula",
   "EVM formulas and interpretation",
+  "CPI / SPI interpretation",
   "EAC and TCPI",
+  "Quality Assurance vs Quality Control",
+  "Precision vs Accuracy",
   "Six Sigma DMAIC",
-  "Risk responses",
-  "Monte Carlo simulation",
-  "Stakeholder engagement",
-  "Stakeholder register",
-  "Communication and expectations"
+  "Risk Probability-Impact Matrix",
+  "Risk responses (threats and opportunities)",
+  "Stakeholder engagement and satisfaction",
+  "Stakeholder Power-Interest Grid",
+  "Communication and expectations",
+  "Integrated change control",
+  "Lessons learned and organizational learning"
 ];
 
 const LESS_EMPHASIS = [
@@ -1329,120 +1650,283 @@ function buildPages() {
   const focus = el("exam-focus");
   focus.innerHTML = `
     <section class="exam-focus-box">
-      <h2>Exam Focus: Highest Probability Topics</h2>
-      <p>Use this page for final revision of likely exam points, formulas, and high-emphasis themes. <a href="#formula-sheet" onclick="navigateTo('formula-sheet'); return false;">→ See Formula Sheet</a></p>
-      <h3>HIGH EMPHASIS (Dr emphasized)</h3>
-      <ul>${HIGH_EMPHASIS.map((item) => `<li><strong>${item}</strong></li>`).join("")}</ul>
-      <h3>LESS EMPHASIZED</h3>
-      <ul>${LESS_EMPHASIS.map((item) => `<li>${item}</li>`).join("")}</ul>
-      <h3>Formula Focus Block</h3>
-      <div class="formula-box">ROI = (Benefits - Costs) / Costs</div>
-      <div class="formula-box">CPI = EV / AC, SPI = EV / PV</div>
-      <div class="formula-box">EAC = BAC / CPI, ETC = EAC - AC, TCPI = (BAC - EV) / (BAC - AC)</div>
-      <h3>Agile vs Traditional Reminder</h3>
+      <h2>EXAM FOCUS: Ultra-Condensed Final Revision</h2>
+      <p>Use this page as your final 30-minute cram resource before the exam. Covers highest-yield topics, traps, and definitions.</p>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">MOST LIKELY ESSAY QUESTIONS</h3>
+      <ul>
+        <li><strong>Process Groups:</strong> Define them and explain why all five matter.</li>
+        <li><strong>WBS:</strong> Explain decomposition, the 100% rule, and scope control.</li>
+        <li><strong>Critical Path:</strong> Define it, explain float/slack, and show how forward/backward pass work.</li>
+        <li><strong>EVM:</strong> Explain CV, SV, CPI, SPI, EAC, TCPI and interpret results.</li>
+        <li><strong>Quality:</strong> Compare QA vs QC; explain prevention vs correction.</li>
+        <li><strong>Risk:</strong> Explain threat and opportunity responses; define risk tolerance.</li>
+        <li><strong>Stakeholder:</strong> Explain engagement levels and the Power-Interest Grid.</li>
+        <li><strong>Integration:</strong> Explain why change control and baseline matter.</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">MOST COMMON CONFUSION PAIRS (Exams Love These!)</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Dimension</th><th>Traditional</th><th>Agile</th></tr></thead>
+          <thead><tr><th>Don't Confuse...</th><th>With...</th><th>Key Difference</th></tr></thead>
           <tbody>
-            <tr><td>Planning style</td><td>Front-loaded baseline planning</td><td>Iterative planning and adaptation</td></tr>
-            <tr><td>Schedule view</td><td>Deadline-focused critical path</td><td>Sprint cadence and value flow</td></tr>
-            <tr><td>Change handling</td><td>Formal integrated change control</td><td>Frequent reprioritization with governance</td></tr>
+            <tr><td>Quality Assurance (QA)</td><td>Quality Control (QC)</td><td>QA = process/prevention; QC = product/detection</td></tr>
+            <tr><td>CPM</td><td>PERT</td><td>CPM = deterministic single estimates; PERT = probabilistic three estimates</td></tr>
+            <tr><td>Verify Scope</td><td>Control Scope</td><td>Verify = validate deliverables; Control = manage changes</td></tr>
+            <tr><td>Precision</td><td>Accuracy</td><td>Precision = repeatability; Accuracy = closeness to target</td></tr>
+            <tr><td>Grade</td><td>Quality</td><td>Grade = level; Quality = meeting requirements</td></tr>
+            <tr><td>Contingency Reserve</td><td>Management Reserve</td><td>Contingency = known-unknowns in baseline; Management = unknown-unknowns, not in baseline</td></tr>
+            <tr><td>Float / Slack</td><td>Duration</td><td>Float = allowable delay; Duration = how long activity takes</td></tr>
+            <tr><td>Crashing</td><td>Fast Tracking</td><td>Crashing = add resources; Fast Tracking = overlap tasks</td></tr>
+            <tr><td>Charter</td><td>Management Plan</td><td>Charter = authorization; Plan = operational guide</td></tr>
+            <tr><td>Risk Appetite</td><td>Risk Tolerance</td><td>Appetite = what org wants to pursue; Tolerance = what org can accept</td></tr>
           </tbody>
         </table>
       </div>
-      <p><strong>Exam advice:</strong> answer with definition -> explanation -> structured points -> short practical example -> why it matters -> conclusion.</p>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">FORMULA INTERPRETATION CHEAT SHEET</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Formula/Metric</th><th>Good Sign</th><th>Bad Sign</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>CPI = EV / AC</td><td>> 1 (efficient)</td><td>&lt; 1 (wasteful)</td><td>If &lt;1, tighten spending</td></tr>
+            <tr><td>SPI = EV / PV</td><td>> 1 (early)</td><td>&lt; 1 (late)</td><td>If &lt;1, accelerate progress</td></tr>
+            <tr><td>CV = EV - AC</td><td>> 0 (under budget)</td><td>&lt; 0 (over budget)</td><td>If &lt;0, request change/replan</td></tr>
+            <tr><td>SV = EV - PV</td><td>> 0 (ahead)</td><td>&lt; 0 (behind)</td><td>If &lt;0, expedite critical path</td></tr>
+            <tr><td>EAC = BAC / CPI</td><td>≈ BAC (on track)</td><td>> BAC (overrun predicted)</td><td>If > BAC, forecast overrun to sponsor</td></tr>
+            <tr><td>TCPI = (BAC-EV)/(BAC-AC)</td><td>&lt; 1 (achievable)</td><td>> 1 (must improve)</td><td>If > 1, efficiency boost required</td></tr>
+            <tr><td>Float = LS - ES</td><td>> 0 (schedule margin)</td><td>= 0 (critical path)</td><td>If = 0, protect from delays</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">DOCTOR'S REPEATED THEMES (High Exam Probability)</h3>
+      <ul style="font-weight: bold;">
+        <li><strong>Prevention is cheaper than correction:</strong> Invest in quality upfront; prevent scope creep; manage risk early.</li>
+        <li><strong>Communication quality matters:</strong> Bad communication causes conflicts, rework, delays; good communication aligns stakeholders.</li>
+        <li><strong>Integration and tradeoffs matter:</strong> Changing scope affects time, cost, quality, and resources; PM must balance.</li>
+        <li><strong>Scope creep is a killer:</strong> Without strong scope control and change discipline, projects fail.</li>
+        <li><strong>Stakeholder expectations must be managed:</strong> Unmet expectations = project failure even if deliverables are technically correct.</li>
+        <li><strong>Continuous risk management:</strong> Risk is not a one-time checklist; it must be monitored throughout execution.</li>
+        <li><strong>Baseline is sacred:</strong> Approved baseline allows measurement of variance; changes must be documented and integrated.</li>
+        <li><strong>All five process groups matter:</strong> Weak planning or weak monitoring causes project trouble downstream.</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">FAST RECALL DEFINITIONS (30 Seconds Each)</h3>
+      <ul>
+        <li><strong>WBS:</strong> Hierarchical decomposition of scope into manageable work packages; ensures 100% of scope is captured and nothing is forgotten.</li>
+        <li><strong>Float / Slack:</strong> Amount of time an activity can slip without delaying the project; zero float = critical path.</li>
+        <li><strong>Stakeholder:</strong> Anyone affected by or able to affect the project; includes internal and external parties.</li>
+        <li><strong>Risk:</strong> Uncertain event that may positively (opportunity) or negatively (threat) affect project objectives.</li>
+        <li><strong>Critical Path:</strong> Longest path through the network; determines minimum project duration; has zero float.</li>
+        <li><strong>EVM (Earned Value Management):</strong> Technique that integrates scope, schedule, and cost to measure project performance; uses PV, EV, AC.</li>
+        <li><strong>DMAIC:</strong> Six Sigma cycle: Define, Measure, Analyze, Improve, Control; data-driven problem-solving approach.</li>
+        <li><strong>Integration Management:</strong> Knowledge area that coordinates all other areas (scope, time, cost, quality, risk, stakeholder) into coherent whole.</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">KEY FORMULAS (Last 30 Min Memorize)</h3>
+      <div class="formula-box" style="margin: 8px 0;">PERT (Three-Point Estimate) = (O + 4M + P) / 6</div>
+      <div class="formula-box" style="margin: 8px 0;">Float = LS - ES  OR  Float = LF - EF</div>
+      <div class="formula-box" style="margin: 8px 0;">CV = EV - AC   |   SV = EV - PV</div>
+      <div class="formula-box" style="margin: 8px 0;">CPI = EV / AC   |   SPI = EV / PV</div>
+      <div class="formula-box" style="margin: 8px 0;">EAC = BAC / CPI   |   TCPI = (BAC - EV) / (BAC - AC)</div>
+      <div class="formula-box" style="margin: 8px 0;">EMV = Probability × Impact</div>
+      <div class="formula-box" style="margin: 8px 0;">ROI = (Benefits - Costs) / Costs</div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">TOP EXAM TRAPS (Things Exams Trick You On)</h3>
+      <ul>
+        <li>EV < AC does NOT mean on schedule; it means over budget. Use SV for schedule variance.</li>
+        <li>Float ≠ Duration. Activity can have long duration but zero float (critical path).</li>
+        <li>QA and QC have opposite focuses: QA prevents, QC detects. Don't mix them up.</li>
+        <li>Charter is issued BY sponsor; Management Plan is created BY PM. Different owners.</li>
+        <li>Contingency reserve IS in baseline; Management reserve is NOT. Big difference for budgeting.</li>
+        <li>Scope creep happens quietly. Without change control discipline, overruns sneak up on you.</li>
+        <li>PERT and CPM are not the same. PERT handles uncertainty; CPM finds critical path.</li>
+        <li>Stakeholder satisfaction ≠ deadline met. You can deliver on time but still fail if stakeholders are unhappy.</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">HIGH EMPHASIS TOPICS (Dr's Core Exam Themes)</h3>
+      <ul>${HIGH_EMPHASIS.map((item) => `<li><strong>${item}</strong></li>`).join("")}</ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">LESS EMPHASIZED (Lower Exam Probability)</h3>
+      <ul>${LESS_EMPHASIS.map((item) => `<li>${item}</li>`).join("")}</ul>
+
+      <p style="margin-top: 20px; padding: 12px; background: rgba(var(--brand-rgb, 100, 150, 200), 0.1); border-radius: 8px;">
+        <strong>✓ Exam Strategy:</strong> Read essay questions carefully. Answer = definition + explanation + structured points + brief example + why it matters + conclusion. Show your thinking, not just keywords. Quality over quantity.
+      </p>
       ${paginationMarkup("chapter14")}
     </section>
   `;
   const formulaSheet = el("formula-sheet");
   formulaSheet.innerHTML = `
     <section class="exam-focus-box">
-      <h2>Formula Sheet & Quick Reference</h2>
-      <p>All key formulas for project management with variables, interpretations, and quick examples. <strong>Print-friendly.</strong></p>
+      <h2>📋 FORMULA SHEET & QUICK REFERENCE</h2>
+      <p><strong>Print-friendly formula reference with interpretations, examples, and decision rules.</strong> Use in study or bring notes to open-book exams.</p>
 
-      <h3 style="margin-top: 20px;">Earned Value Management (EVM)</h3>
+      <h3 style="margin-top: 20px; color: var(--brand);">⚡ ULTRA FAST RECALL (Top of Sheet)</h3>
+      <ul style="font-size: 0.95em;">
+        <li><strong>Critical Path:</strong> Longest path through network, determines min project duration, has 0 float</li>
+        <li><strong>Float Formula:</strong> TF = LS - ES (or LF - EF); means activity can slip this many days without delaying project</li>
+        <li><strong>PERT Formula:</strong> (Optimistic + 4×Most Likely + Pessimistic) / 6; handles uncertainty in duration estimates</li>
+        <li><strong>BAC = Budget at Completion:</strong> Total approved project budget baseline, set during cost planning</li>
+        <li><strong>EVM Core:</strong> PV (planned), EV (earned), AC (actual); compare for cost and schedule variance</li>
+        <li><strong>Contingency Reserve:</strong> Built into baseline, covers known-unknown risks (plan)contingencies</li>
+        <li><strong>Management Reserve:</strong> NOT in baseline, covers unknown-unknown risks (sponsor discretion)</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">📅 Schedule Formulas</h3>
+
+      <div class="formula-grid">
+        <div class="formula-card">
+          <h3>Float (Slack)</h3>
+          <div class="formula-display">TF = LS - ES  OR  TF = LF - EF</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>LS = Late Start</li><li>ES = Early Start</li><li>LF = Late Finish</li><li>EF = Early Finish</li></ul></div>
+          <div class="formula-interpretation"><strong>What it means:</strong> Days activity can slip without delaying project. TF = 0 means critical path (no flexibility). TF > 0 means schedule margin (can be delayed TF days safely).</div>
+        </div>
+
+        <div class="formula-card">
+          <h3>PERT Three-Point Estimate</h3>
+          <div class="formula-display">Expected Duration = (O + 4M + P) / 6</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>O = Optimistic</li><li>M = Most Likely</li><li>P = Pessimistic</li></ul></div>
+          <div class="formula-interpretation"><strong>Example:</strong> Task: O=2, M=5, P=14 days → Expected = (2+20+14)/6 = 6 days. Handles uncertainty better than single estimate.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">💰 Cost & Earned Value Management (EVM) Formulas</h3>
 
       <div class="formula-grid">
         <div class="formula-card">
           <h3>Cost Variance (CV)</h3>
           <div class="formula-display">CV = EV - AC</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> If CV > 0, under budget. If CV < 0, over budget.</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value (% work done × budget)</li><li>AC = Actual Cost (what you spent)</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> CV > 0 = under budget (good). CV < 0 = over budget (bad). CV = 0 = on budget (neutral).</div>
         </div>
 
         <div class="formula-card">
           <h3>Schedule Variance (SV)</h3>
           <div class="formula-display">SV = EV - PV</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> If SV > 0, ahead of schedule. If SV < 0, behind schedule.</div>
+          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value (% work scheduled × budget)</li></ul></div>
+          <div class="formula-interpretation"><strong>Interpretation:</strong> SV > 0 = ahead of schedule (good). SV < 0 = behind schedule (bad). Tells you schedule health, NOT cost.</div>
         </div>
 
         <div class="formula-card">
           <h3>Cost Performance Index (CPI)</h3>
           <div class="formula-display">CPI = EV / AC</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> CPI > 1 = efficient. CPI < 1 = inefficient. CPI = 1 = perfect efficiency.</div>
+          <div class="formula-vars"><strong>Example:</strong> EV=$90K, AC=$100K → CPI = 0.9 (inefficient, spending $1.11 per $1 earned)</div>
+          <div class="formula-interpretation"><strong>Decision Rule:</strong> CPI > 1 = efficient. CPI < 1 = wasteful. CPI = 1 = perfect. Watch for CPI < 0.95 (warning zone).</div>
         </div>
 
         <div class="formula-card">
           <h3>Schedule Performance Index (SPI)</h3>
           <div class="formula-display">SPI = EV / PV</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>EV = Earned Value</li><li>PV = Planned Value</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> SPI > 1 = ahead. SPI < 1 = behind. SPI = 1 = on schedule.</div>
+          <div class="formula-vars"><strong>Example:</strong> EV=$80K, PV=$100K → SPI = 0.8 (only 80% progress vs 100% planned)</div>
+          <div class="formula-interpretation"><strong>Decision Rule:</strong> SPI > 1 = ahead. SPI < 1 = behind. SPI = 1 = on schedule.</div>
         </div>
 
         <div class="formula-card">
           <h3>Estimate at Completion (EAC)</h3>
           <div class="formula-display">EAC = BAC / CPI</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>CPI = Cost Performance Index</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> Forecasts total project cost based on current performance. If EAC > BAC, project will overrun.</div>
+          <div class="formula-vars"><strong>Example:</strong> BAC=$500K, CPI=0.8 → EAC = $625K (will cost AED125K more than planned)</div>
+          <div class="formula-interpretation"><strong>Action:</strong> If EAC > BAC, forecast overrun to sponsor. Project will exceed budget unless efficiency improves.</div>
         </div>
 
         <div class="formula-card">
           <h3>Estimate to Complete (ETC)</h3>
           <div class="formula-display">ETC = EAC - AC</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>EAC = Estimate at Completion</li><li>AC = Actual Cost</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> Remaining budget needed to complete project.</div>
+          <div class="formula-vars"><strong>Example:</strong> EAC=$625K, AC=$400K → ETC = $225K remaining to complete project</div>
+          <div class="formula-interpretation"><strong>Use:</strong> Tells sponsor how much more money is needed. Request additional budget or implement controls.</div>
         </div>
 
         <div class="formula-card">
           <h3>To-Complete Performance Index (TCPI)</h3>
           <div class="formula-display">TCPI = (BAC - EV) / (BAC - AC)</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>BAC = Budget at Completion</li><li>EV = Earned Value</li><li>AC = Actual Cost</li></ul></div>
-          <div class="formula-interpretation"><strong>Interpretation:</strong> Required cost efficiency to meet target budget. TCPI > 1 = must improve. TCPI < 1 = can relax.</div>
+          <div class="formula-vars"><strong>Example:</strong> BAC=$500K, EV=$300K, AC=$350K → TCPI = $200K / $150K = 1.33</div>
+          <div class="formula-interpretation"><strong>Action:</strong> TCPI > 1 = must work harder (improve efficiency). TCPI < 1 = can relax (efficiency margin exists). TCPI = 1 = stay on track.</div>
         </div>
 
         <div class="formula-card">
           <h3>Return on Investment (ROI)</h3>
           <div class="formula-display">ROI = (Benefits - Costs) / Costs × 100%</div>
-          <div class="formula-vars"><strong>Example:</strong> If project costs AED 100K and returns AED 150K, ROI = (150-100)/100 = 50%</div>
-        </div>
-
-        <div class="formula-card">
-          <h3>PERT Expected Duration</h3>
-          <div class="formula-display">Expected Duration = (O + 4M + P) / 6</div>
-          <div class="formula-vars"><strong>Variables:</strong><ul><li>O = Optimistic estimate</li><li>M = Most likely estimate</li><li>P = Pessimistic estimate</li></ul></div>
-          <div class="formula-interpretation"><strong>Example:</strong> Task estimates: Optimistic 2 days, Most likely 5 days, Pessimistic 8 days. Expected = (2 + 20 + 8) / 6 = 5 days</div>
+          <div class="formula-vars"><strong>Example:</strong> Cost=$100K, Benefit=$150K → ROI = (150-100)/100 = 50% return</div>
+          <div class="formula-interpretation"><strong>Use:</strong> Justify project value to stakeholders. Higher ROI = more attractive project.</div>
         </div>
       </div>
 
-      <h3 style="margin-top: 20px; margin-bottom: 20px;">Quick Decision Rules</h3>
+      <h3 style="margin-top: 20px; color: var(--brand);">📊 Risk & Opportunity Formulas</h3>
+
+      <div class="formula-grid">
+        <div class="formula-card">
+          <h3>Expected Monetary Value (EMV)</h3>
+          <div class="formula-display">EMV = Probability × Impact</div>
+          <div class="formula-vars"><strong>Example Risk:</strong> 30% chance of AED100K cost overrun → EMV = 0.30 × 100K = AED30K expected exposure</div>
+          <div class="formula-vars"><strong>Example Opportunity:</strong> 20% chance of AED50K savings → EMV = 0.20 × 50K = AED10K expected benefit</div>
+          <div class="formula-interpretation"><strong>Use:</strong> Prioritize risks/opportunities by expected value. Higher EMV = allocate more management attention.</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">⚙️ Reserve Structure Visual</h3>
+      <div style="background: rgba(var(--brand-rgb, 100, 150, 200), 0.05); padding: 16px; border-radius: 8px; margin: 12px 0;">
+        <strong>Cost Budget Layers:</strong>
+        <ul style="margin: 8px 0; font-family: monospace; font-size: 0.9em;">
+          <li>Detailed Cost Estimates (resources, duration × rates)</li>
+          <li>+ Contingency Reserve (known risks, e.g., weather delays) = <strong>COST BASELINE (in project plan, in baseline)</strong></li>
+          <li>+ Management Reserve (unknown risks, sponsor discretion) = <strong>PROJECT BUDGET (total authorization)</strong></li>
+        </ul>
+        <strong>Key Difference:</strong> Contingency IS tracked in EVM (planned); Management Reserve is outside baseline (discretionary).
+      </div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">🔄 Crashing vs Fast Tracking Comparison</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Indicator</th><th>Meaning</th><th>Action</th></tr></thead>
+          <thead><tr><th>Dimension</th><th>Crashing</th><th>Fast Tracking</th></tr></thead>
           <tbody>
-            <tr><td>CV &lt; 0</td><td>Over budget</td><td>Reduce scope, find cost savings, or request budget increase</td></tr>
-            <tr><td>SV &lt; 0</td><td>Behind schedule</td><td>Accelerate tasks, add resources, or reduce scope</td></tr>
-            <tr><td>CPI &lt; 1</td><td>Inefficient spending</td><td>Review cost controls, investigate waste</td></tr>
-            <tr><td>SPI &lt; 1</td><td>Inefficient schedule progress</td><td>Evaluate resource constraints, dependencies</td></tr>
-            <tr><td>EAC &gt; BAC</td><td>Project will overrun budget</td><td>Implement corrective actions or request change</td></tr>
-            <tr><td>TCPI &gt; 1</td><td>Must improve efficiency</td><td>Prioritize high-impact cost reductions</td></tr>
+            <tr><td><strong>Definition</strong></td><td>Add resources to critical activities</td><td>Overlap sequential tasks</td></tr>
+            <tr><td><strong>Cost Impact</strong></td><td>Increases (more labor/materials)</td><td>Minimal cost impact</td></tr>
+            <tr><td><strong>Schedule Benefit</strong></td><td>Can reduce duration significantly</td><td>Can reduce duration moderately</td></tr>
+            <tr><td><strong>Risk Impact</strong></td><td>Low risk (proven approach)</td><td>High risk (more rework/coordination)</td></tr>
+            <tr><td><strong>Example</strong></td><td>Hire extra carpenters to finish house faster</td><td>Start painting while walls still drying</td></tr>
+            <tr><td><strong>Best For</strong></td><td>When you have budget flexibility</td><td>When you have schedule pressure but budget is tight</td></tr>
           </tbody>
         </table>
       </div>
 
-      <nav class="pagination" aria-label="Formula sheet navigation">
-        <button type="button" data-nav="chapter14">Back to Chapter 14</button>
+      <h3 style="margin-top: 20px; color: var(--brand);">⚠️ COMMON EXAM TRAPS (Remember These!)</h3>
+      <ul style="background: rgba(255, 100, 100, 0.05); padding: 12px; border-left: 4px solid #ff6464; border-radius: 4px;">
+        <li><strong>EV &lt; AC does NOT mean behind schedule:</strong> It means over budget. Use SV to measure schedule (not CV).</li>
+        <li><strong>Float ≠ Duration:</strong> An activity can have 30-day duration but 0 float (critical path). Can't delay without impacting project.</li>
+        <li><strong>CPI &lt; 1 = spending inefficiently, not necessarily failure:</strong> Project can complete on-time with low CPI if schedule has floats on non-critical tasks.</li>
+        <li><strong>Contingency IS in baseline, Management Reserve is NOT:</strong> Very common exam distinction. Big difference for budget planning.</li>
+        <li><strong>PERT ≠ CPM:</strong> PERT handles uncertainty in estimates. CPM finds the critical path. Both are used together, not interchangeable.</li>
+        <li><strong>Cost of Quality ≠ Quality Cost:</strong> CoQ includes prevention (training, reviews) AND detection (testing, inspection) AND failure costs (rework, warranty).</li>
+      </ul>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">📋 EVM Quick Decision Rules</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Indicator</th><th>Threshold</th><th>Meaning</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>CV</td><td>&lt; 0</td><td>Over budget</td><td>Reduce scope or find cost savings</td></tr>
+            <tr><td>SV</td><td>&lt; 0</td><td>Behind schedule</td><td>Accelerate tasks, add resources</td></tr>
+            <tr><td>CPI</td><td>&lt; 1</td><td>Inefficient spending</td><td>Investigate cost control violations</td></tr>
+            <tr><td>CPI</td><td>&lt; 0.95</td><td>Warning zone</td><td>Immediate corrective action needed</td></tr>
+            <tr><td>SPI</td><td>&lt; 1</td><td>Inefficient progress</td><td>Evaluate resource/dependency bottlenecks</td></tr>
+            <tr><td>EAC</td><td>&gt; BAC</td><td>Will overrun budget</td><td>Request change or implement controls</td></tr>
+            <tr><td>TCPI</td><td>&gt; 1</td><td>Must improve efficiency</td><td>Prioritize high-impact cost reductions</td></tr>
+            <tr><td>TCPI</td><td>&gt; 1.1</td><td>Unlikely achievable</td><td>Escalate to sponsor, request change</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="margin-top: 20px; color: var(--brand);">🖨️ Print Tips</h3>
+      <ul style="font-size: 0.9em;">
+        <li>Print with "Print backgrounds" enabled to show colored boxes</li>
+        <li>Use landscape orientation for table readability</li>
+        <li>Print at 85-90% scale to fit more content per page</li>
+        <li>Bring with highlighter to mark key formulas during study</li>
+      </ul>
+
+      <nav class="pagination" aria-label="Formula sheet navigation" style="margin-top: 20px;">
+        <button type="button" data-nav="chapter14">← Back to Chapter 14</button>
         <button type="button" data-nav="dashboard">Dashboard</button>
       </nav>
     </section>
