@@ -60,6 +60,7 @@ body.sidebar-open {
   grid-template-columns: 280px 1fr;
   min-height: 100vh;
   overflow-x: clip;
+  transition: grid-template-columns 0.28s ease;
 }
 
 .sidebar {
@@ -70,6 +71,7 @@ body.sidebar-open {
   border-right: 1px solid var(--border);
   background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
   padding: 18px;
+  transition: width 0.28s ease, padding 0.28s ease, opacity 0.2s ease, border-color 0.2s ease;
 }
 
 .brand {
@@ -168,7 +170,7 @@ body.sidebar-open {
   padding: 14px 16px;
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 130;
 }
 
 .controls-grid {
@@ -563,6 +565,43 @@ html[data-theme="dark"] mark.search-hit {
   padding: 8px;
 }
 
+.sidebar-toggle {
+  min-width: 40px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  border-color: var(--brand);
+  color: var(--brand);
+  background: color-mix(in srgb, var(--surface), var(--surface-2) 40%);
+  position: relative;
+  z-index: 70;
+}
+
+.sidebar-toggle:hover {
+  background: color-mix(in srgb, var(--surface), var(--brand) 10%);
+}
+
+.sidebar-toggle:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+@media (min-width: 769px) {
+  .site-shell.sidebar-collapsed {
+    grid-template-columns: 0 minmax(0, 1fr);
+  }
+
+  .site-shell.sidebar-collapsed .sidebar {
+    width: 0;
+    padding: 0;
+    border-right-color: transparent;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
 .hamburger-menu span {
   width: 24px;
   height: 2px;
@@ -739,6 +778,10 @@ html[data-theme="dark"] .matrix-cell.critical { background: #5e2630; color: #ffd
   .hamburger-menu {
     display: flex;
   }
+
+  .site-shell.sidebar-collapsed .sidebar {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -757,6 +800,10 @@ html[data-theme="dark"] .matrix-cell.critical { background: #5e2630; color: #ffd
     transition: transform 0.3s ease;
     overflow-y: auto;
     border-right: 1px solid var(--border);
+  }
+
+  .site-shell.sidebar-collapsed .sidebar {
+    display: block;
   }
 
   .sidebar.open {

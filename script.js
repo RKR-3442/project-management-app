@@ -1,6 +1,7 @@
 const STUDIED_KEY = "pm-studied-chapters";
 const THEME_KEY = "pm-theme";
 const QUICK_REVISION_KEY = "quick-revision-mode";
+const SIDEBAR_COLLAPSED_KEY = "pm-sidebar-collapsed";
 const SEARCH_DEBOUNCE_MS = 180;
 
 const CHAPTERS = [
@@ -242,7 +243,7 @@ const CHAPTERS = [
         badges: ["HIGH PRIORITY", "DR EMPHASIZED"],
         html: `
           <ul>
-            <li><strong>Project scope management</strong>: ensure the project includes all required work and only required work.</li>
+            <li><strong>Project Scope Management:</strong> ensures the project includes all required work and excludes unnecessary work so the project can be completed successfully.</li>
             <li>Scope is about <strong>amount of work</strong>, not project size.</li>
             <li>Clear scope drives quality and control; unclear scope drives rework and conflict.</li>
             <li>Project manager must prevent extra non-approved work (<strong>gold plating</strong>).</li>
@@ -1438,6 +1439,7 @@ function syncMobileSidebarState(isOpen) {
   overlay.hidden = !isOpen;
   document.body.classList.toggle("sidebar-open", isOpen);
   hamburger.setAttribute("aria-expanded", String(isOpen));
+  syncSidebarToggleState();
 }
 
 function closeMobileSidebar() {
@@ -1448,6 +1450,44 @@ function toggleMobileSidebar() {
   const sidebar = document.querySelector(".sidebar");
   if (!sidebar) return;
   syncMobileSidebarState(!sidebar.classList.contains("open"));
+}
+
+function getSavedSidebarCollapsed() {
+  return localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "true";
+}
+
+function setSidebarCollapsed(collapsed, persist = true) {
+  const shell = document.querySelector(".site-shell");
+  if (!shell) return;
+  shell.classList.toggle("sidebar-collapsed", collapsed);
+  if (persist) {
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(collapsed));
+  }
+  syncSidebarToggleState();
+}
+
+function syncSidebarToggleState() {
+  const sidebarToggle = el("sidebar-toggle");
+  const sidebar = document.querySelector(".sidebar");
+  const shell = document.querySelector(".site-shell");
+  if (!sidebarToggle || !sidebar || !shell) return;
+
+  const isMobile = isMobileViewport();
+  const expanded = isMobile ? sidebar.classList.contains("open") : !shell.classList.contains("sidebar-collapsed");
+
+  sidebarToggle.textContent = expanded ? "<" : ">";
+  sidebarToggle.setAttribute("aria-expanded", String(expanded));
+  sidebarToggle.setAttribute("aria-label", expanded ? "Collapse sidebar" : "Expand sidebar");
+}
+
+function toggleSidebar() {
+  if (isMobileViewport()) {
+    toggleMobileSidebar();
+    return;
+  }
+  const shell = document.querySelector(".site-shell");
+  if (!shell) return;
+  setSidebarCollapsed(!shell.classList.contains("sidebar-collapsed"));
 }
 
 function el(id) {
@@ -2318,7 +2358,18 @@ function bindTopButtons() {
   el("to-exam-focus").addEventListener("click", () => navigateTo("exam-focus"));
 
   const hamburger = el("hamburger-menu");
+  const sidebarToggle = el("sidebar-toggle");
   const overlay = el("mobile-overlay");
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", toggleSidebar);
+    sidebarToggle.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleSidebar();
+      }
+    });
+  }
 
   if (hamburger) {
     hamburger.addEventListener("click", () => {
@@ -2340,7 +2391,11 @@ function bindTopButtons() {
   window.addEventListener("resize", () => {
     if (!isMobileViewport()) {
       closeMobileSidebar();
+      setSidebarCollapsed(getSavedSidebarCollapsed(), false);
+    } else {
+      setSidebarCollapsed(true, false);
     }
+    syncSidebarToggleState();
   });
 
   const quickRevBtn = el("quick-revision-btn");
@@ -2379,6 +2434,7 @@ function init() {
   if (isQuickMode) {
     document.documentElement.classList.add("quick-revision-active");
   }
+  setSidebarCollapsed(isMobileViewport() ? true : getSavedSidebarCollapsed(), false);
   buildSidebar();
   buildDashboard();
   buildPages();
@@ -2390,6 +2446,7 @@ function init() {
   bindTopButtons();
   loadFromHash();
   closeMobileSidebar();
+  syncSidebarToggleState();
 }
 
 document.addEventListener("DOMContentLoaded", init);
