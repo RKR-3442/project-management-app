@@ -570,30 +570,33 @@ html[data-theme="dark"] mark.search-hit {
   top: 50%;
   left: calc(280px - 20px);
   transform: translateY(-50%);
-  width: 36px;
-  min-height: 64px;
-  padding: 4px 0;
-  font-size: 0.75rem;
+  width: 26px;
+  min-width: 26px;
+  height: 48px;
+  min-height: 48px;
+  padding: 0;
+  font-size: 0.65rem;
   font-weight: 600;
   line-height: 1;
   border-color: color-mix(in srgb, var(--border), var(--brand) 30%);
   color: var(--brand);
   background: color-mix(in srgb, var(--surface), var(--surface-2) 40%);
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 6px 6px 0;
   z-index: 200;
-  opacity: 0.85;
-  transition: left 0.28s ease, background-color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.28;
+  transition: left 0.25s ease, background-color 0.2s ease, opacity 0.2s ease;
 }
 
-.sidebar-toggle:hover {
+.sidebar-toggle:hover,
+.sidebar-toggle:focus-visible {
   background: color-mix(in srgb, var(--surface), var(--brand) 12%);
   opacity: 1;
+  outline: none;
 }
 
 .sidebar-toggle:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
-  opacity: 1;
 }
 
 .site-shell.sidebar-collapsed .sidebar-toggle {
