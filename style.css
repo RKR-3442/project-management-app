@@ -566,7 +566,12 @@ html[data-theme="dark"] mark.search-hit {
 }
 
 .sidebar-toggle {
+  position: fixed;
+  top: 50%;
+  left: 8px;
+  transform: translateY(-50%);
   min-width: 40px;
+  min-height: 48px;
   padding: 8px 10px;
   font-size: 1rem;
   font-weight: 700;
@@ -574,8 +579,9 @@ html[data-theme="dark"] mark.search-hit {
   border-color: var(--brand);
   color: var(--brand);
   background: color-mix(in srgb, var(--surface), var(--surface-2) 40%);
-  position: relative;
-  z-index: 70;
+  border-radius: 0 12px 12px 0;
+  z-index: 140;
+  transition: left 0.28s ease, background-color 0.2s ease;
 }
 
 .sidebar-toggle:hover {
@@ -585,6 +591,18 @@ html[data-theme="dark"] mark.search-hit {
 .sidebar-toggle:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
+}
+
+.site-shell:not(.sidebar-collapsed) .sidebar-toggle {
+  left: calc(280px - 18px);
+}
+
+.site-shell.sidebar-collapsed .sidebar-toggle {
+  left: 8px;
+}
+
+body.sidebar-open .sidebar-toggle {
+  left: calc(280px - 18px);
 }
 
 @media (min-width: 769px) {
@@ -814,6 +832,15 @@ html[data-theme="dark"] .matrix-cell.critical { background: #5e2630; color: #ffd
     padding: 10px 12px;
   }
 
+  .sidebar-toggle {
+    top: 50%;
+    left: 8px;
+  }
+
+  body.sidebar-open .sidebar-toggle {
+    left: calc(280px - 18px);
+  }
+
   .controls-grid {
     grid-template-columns: 1fr;
   }
@@ -904,6 +931,10 @@ html[data-theme="dark"] .matrix-cell.critical { background: #5e2630; color: #ffd
 @media (max-width: 640px) {
   .sidebar {
     width: 250px;
+  }
+
+  body.sidebar-open .sidebar-toggle {
+    left: calc(250px - 18px);
   }
 
   .topbar {
